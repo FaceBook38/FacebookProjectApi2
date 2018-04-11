@@ -95,7 +95,7 @@ namespace FaceBookAPI.Controllers
                 return NotFound();
             }
 
-            db.Posts.Remove(post);
+            post.deleted = true;
             db.SaveChanges();
 
             return Ok(post);

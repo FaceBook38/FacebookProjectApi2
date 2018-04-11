@@ -95,7 +95,7 @@ namespace FaceBookAPI.Controllers
                 return NotFound();
             }
 
-            db.Comments.Remove(comment);
+            comment.deleted = true;
             db.SaveChanges();
 
             return Ok(comment);
