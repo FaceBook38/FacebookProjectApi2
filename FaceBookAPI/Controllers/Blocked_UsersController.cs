@@ -34,7 +34,7 @@ namespace FaceBookAPI.Controllers
             {
                 return NotFound();
             }
-
+            //lll//
             return Ok(blocked_Users);
         }
 
