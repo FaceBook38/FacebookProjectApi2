@@ -95,7 +95,7 @@ namespace FaceBookAPI.Controllers
                 return NotFound();
             }
 
-            db.Users.Remove(user);
+            user.deleted = true;
             db.SaveChanges();
 
             return Ok(user);

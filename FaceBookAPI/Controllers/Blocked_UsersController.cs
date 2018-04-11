@@ -12,6 +12,7 @@ using FaceBookAPI.Models.FaceBook;
 
 namespace FaceBookAPI.Controllers
 {
+    // batee5 bel betengaaan
     public class Blocked_UsersController : ApiController
     {
         private FacebookContext db = new FacebookContext();

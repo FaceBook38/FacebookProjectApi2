@@ -95,7 +95,7 @@ namespace FaceBookAPI.Controllers
                 return NotFound();
             }
 
-            db.Groups.Remove(group);
+            group.deleted = true;
             db.SaveChanges();
 
             return Ok(group);
