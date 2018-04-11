@@ -17,16 +17,18 @@ namespace FaceBookAPI.Controllers
         private FacebookContext db = new FacebookContext();
 
         // GET: api/Posts
+        //edit get all posts that deleted = false 
         public IQueryable<Post> GetPosts()
         {
-            return db.Posts;
+            return db.Posts.Where(p => p.deleted == false);
         }
 
         // GET: api/Posts/5
+        //edit get all posts that deleted = false  and it's id ==5
         [ResponseType(typeof(Post))]
         public IHttpActionResult GetPost(int id)
         {
-            Post post = db.Posts.Find(id);
+            Post post = db.Posts.FirstOrDefault(p => p.post_id == id && p.deleted == false);
             if (post == null)
             {
                 return NotFound();

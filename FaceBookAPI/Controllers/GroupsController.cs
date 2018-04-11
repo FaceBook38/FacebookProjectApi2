@@ -17,16 +17,17 @@ namespace FaceBookAPI.Controllers
         private FacebookContext db = new FacebookContext();
 
         // GET: api/Groups
+        //edit get all group that it's daleted = false 
         public IQueryable<Group> GetGroups()
         {
-            return db.Groups;
+            return db.Groups.Where(g => g.deleted == false);
         }
 
         // GET: api/Groups/5
         [ResponseType(typeof(Group))]
         public IHttpActionResult GetGroup(int id)
         {
-            Group group = db.Groups.Find(id);
+            Group group = db.Groups.FirstOrDefault(g => g.deleted == false && g.group_id == id);
             if (group == null)
             {
                 return NotFound();

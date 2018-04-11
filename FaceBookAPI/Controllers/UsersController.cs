@@ -17,16 +17,18 @@ namespace FaceBookAPI.Controllers
         private FacebookContext db = new FacebookContext();
 
         // GET: api/Users
+        //get all users that deleted = false 
         public IQueryable<User> GetUsers()
         {
-            return db.Users;
+            return db.Users.Where(user => user.deleted == false && user.user_type == "user");
         }
 
         // GET: api/Users/5
+        // GET: api/Users/5 and deleted =false
         [ResponseType(typeof(User))]
         public IHttpActionResult GetUser(int id)
         {
-            User user = db.Users.Find(id);
+            User user = db.Users.FirstOrDefault(user_ => user_.user_id == id && user_.deleted == false && user_.user_type == "user");
             if (user == null)
             {
                 return NotFound();

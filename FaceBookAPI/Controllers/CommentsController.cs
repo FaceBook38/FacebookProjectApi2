@@ -17,16 +17,17 @@ namespace FaceBookAPI.Controllers
         private FacebookContext db = new FacebookContext();
 
         // GET: api/Comments
+        //edit by deleted = false
         public IQueryable<Comment> GetComments()
         {
-            return db.Comments;
+            return db.Comments.Where(c=>c.deleted==false);
         }
 
         // GET: api/Comments/5
         [ResponseType(typeof(Comment))]
         public IHttpActionResult GetComment(int id)
         {
-            Comment comment = db.Comments.Find(id);
+            Comment comment = db.Comments.FirstOrDefault(c => c.comment_id == id && c.deleted == false);
             if (comment == null)
             {
                 return NotFound();
