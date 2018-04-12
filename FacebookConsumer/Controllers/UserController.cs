@@ -32,18 +32,42 @@ namespace FacebookConsumer.Controllers
         {
             try
             {
+                var usrResult = LoginUser(login);
+                
+                
                 // TODO: Add insert logic here
-                if (LoginUser(login).IsSuccessStatusCode)
-                    return RedirectToAction("Profile");
+                if (usrResult.IsSuccessStatusCode)
+                {
+                    var userLogged = usrResult.Content.ReadAsAsync<User>().Result;
+                    if (userLogged != null)
+                    {
+                        Session["user_id"] = userLogged.user_id;
+                        Session["user_type"] = userLogged.user_type;
+                        if (userLogged.user_type == "user")
+                        {
+                            return RedirectToAction("Profile");
+                        }
+                        else
+                        {
+                            //Admin page
+                        }
+                    }
+                    else
+                    {
+                        return RedirectToAction("Login");
+                    }
+                }
                 else
                 {
                     return RedirectToAction("Login");
                 }
             }
-            catch
+            catch(Exception exception)
             {
-                return View();
+                Console.WriteLine(exception);
             }
+            
+            return View();
         }
 
         // GET: User/Details/5
