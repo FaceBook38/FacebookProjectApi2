@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using FacebookConsumer.Models;
+using FacebookConsumer.Models.FaceBook;
 using Newtonsoft.Json;
 
 namespace FacebookConsumer.Controllers
@@ -66,7 +67,7 @@ namespace FacebookConsumer.Controllers
                 client.BaseAddress = new Uri("http://localhost:54555/api/Groups");
                 group.group_admin = 1;
                 group.deleted = false;
-                var postTask = client.PostAsJsonAsync<Group>("group", group);
+                var postTask = client.PostAsJsonAsync<Group>("groups", group);
                 postTask.Wait();
                 var result = postTask.Result;
                 if (result.IsSuccessStatusCode)

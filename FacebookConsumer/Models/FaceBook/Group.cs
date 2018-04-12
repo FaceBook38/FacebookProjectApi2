@@ -17,7 +17,7 @@ namespace FacebookConsumer.Models.FaceBook
         public int group_id { get; set; }
 
         public int group_admin { get; set; }
-
+        [Display(Name ="Group name")]
         [Required]
         [StringLength(50)]
         public string group_name { get; set; }
