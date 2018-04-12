@@ -9,6 +9,7 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 using FaceBookAPI.Models.FaceBook;
+using FaceBookAPI.Models.ViewModels;
 
 namespace FaceBookAPI.Controllers
 {
@@ -23,9 +24,27 @@ namespace FaceBookAPI.Controllers
             return db.Users.Where(user => user.deleted == false && user.user_type == "user");
         }
 
+        //Login 
+        //Post: api/Users
+        [HttpPost]
+        [Route("api/users/login")]
+        [ResponseType(typeof(User))]
+        public IHttpActionResult LoginUser(LoginViewModel login)
+        {
+            
+            User user = db.Users.FirstOrDefault(user_ => user_.user_email == login.user_email&&user_.user_password == login.user_password && user_.deleted == false && user_.user_type == "user");
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(user);
+        }
+
         // GET: api/Users/5
         // GET: api/Users/5 and deleted =false
         [ResponseType(typeof(User))]
+        [Route("api/users/getuser")]
         public IHttpActionResult GetUser(int id)
         {
             User user = db.Users.FirstOrDefault(user_ => user_.user_id == id && user_.deleted == false && user_.user_type == "user");
@@ -81,6 +100,8 @@ namespace FaceBookAPI.Controllers
                 return BadRequest(ModelState);
             }
 
+            user.user_type = "user";
+            user.deleted = false;
             db.Users.Add(user);
             db.SaveChanges();
 
