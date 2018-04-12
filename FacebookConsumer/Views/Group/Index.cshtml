@@ -1,0 +1,24 @@
+﻿@model IEnumerable<FacebookConsumer.Models.Group>
+@{
+    ViewBag.Title = "Groups";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+<table>
+    <tr>
+        <td>Group ID</td>
+        <td>Name</td>
+        <td>Admin</td>
+
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.group_image</td>
+            <td>@item.group_id</td>
+            <td>@item.group_name</td>
+            <td>@item.group_admin</td>
+        </tr>
+    }
+</table>
