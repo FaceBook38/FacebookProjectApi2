@@ -10,6 +10,7 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using FaceBookAPI.Models.FaceBook;
 using FaceBookAPI.Models.ViewModels;
+using Microsoft.ApplicationInsights.Extensibility.Implementation;
 
 namespace FaceBookAPI.Controllers
 {
@@ -37,7 +38,6 @@ namespace FaceBookAPI.Controllers
             {
                 return NotFound();
             }
-
             return Ok(user);
         }
 

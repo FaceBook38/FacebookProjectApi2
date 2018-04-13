@@ -156,6 +156,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\GroupController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
@@ -246,6 +247,8 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+	  <Content Include="Views\Group\Index.cshtml" />
+    <Content Include="Views\Group\Create.cshtml" />
     <Content Include="Views\User\Create.cshtml" />
     <Content Include="Views\User\Login.cshtml" />
     <Content Include="Views\User\SearchResult.cshtml" />

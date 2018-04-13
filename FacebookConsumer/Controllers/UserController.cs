@@ -11,25 +11,20 @@ using Microsoft.Ajax.Utilities;
 
 namespace FacebookConsumer.Controllers
 {
-
     public class UserController : Controller
     {
-        public User u = new User();
-        
        public HttpClient UserClient = new HttpClient();
 
         public UserController()
         {
             //port number is not static
             UserClient.BaseAddress = new Uri("http://localhost:54555");
-            
         }
 
         // GET: Login Page User
         [HttpGet]
         public ActionResult Login()
         {
-
             return View();
         }
         [HttpPost]
@@ -37,26 +32,42 @@ namespace FacebookConsumer.Controllers
         {
             try
             {
+                var usrResult = LoginUser(login);
+                
+                
                 // TODO: Add insert logic here
-                if (LoginUser(login).IsSuccessStatusCode)
+                if (usrResult.IsSuccessStatusCode)
                 {
-                    HttpResponseMessage response = UserClient.GetAsync("api/users/"+ login.user_email).Result;
-                    //Global var represents current user
-                    u = response.Content.ReadAsAsync<User>().Result;
-                    
-                    return RedirectToAction("Profile");
-
+                    var userLogged = usrResult.Content.ReadAsAsync<User>().Result;
+                    if (userLogged != null)
+                    {
+                        Session["user_id"] = userLogged.user_id;
+                        Session["user_type"] = userLogged.user_type;
+                        if (userLogged.user_type == "user")
+                        {
+                            return RedirectToAction("Profile");
+                        }
+                        else
+                        {
+                            //Admin page
+                        }
+                    }
+                    else
+                    {
+                        return RedirectToAction("Login");
+                    }
                 }
-                    
                 else
                 {
                     return RedirectToAction("Login");
                 }
             }
-            catch
+            catch(Exception exception)
             {
-                return View();
+                Console.WriteLine(exception);
             }
+            
+            return View();
         }
 
         // GET: User/Details/5
@@ -78,10 +89,7 @@ namespace FacebookConsumer.Controllers
             {
                 // TODO: Add insert logic here
                 if (RegisterUser(user).IsSuccessStatusCode)
-                {
-                    
                     return RedirectToAction("Login");
-                }
                 else
                 {
                     return RedirectToAction("Create");
@@ -138,7 +146,6 @@ namespace FacebookConsumer.Controllers
             {
                 return View();
             }
-
         }
 
        
