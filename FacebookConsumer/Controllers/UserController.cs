@@ -11,30 +11,43 @@ using Microsoft.Ajax.Utilities;
 
 namespace FacebookConsumer.Controllers
 {
+
     public class UserController : Controller
     {
+        public User u = new User();
+        
        public HttpClient UserClient = new HttpClient();
 
         public UserController()
         {
             //port number is not static
             UserClient.BaseAddress = new Uri("http://localhost:54555");
+            
         }
 
         // GET: Login Page User
         [HttpGet]
         public ActionResult Login()
         {
+
             return View();
         }
         [HttpPost]
-        public ActionResult Login(LoginViewModel login)
+        public  ActionResult Login(LoginViewModel login)
         {
             try
             {
                 // TODO: Add insert logic here
                 if (LoginUser(login).IsSuccessStatusCode)
+                {
+                    HttpResponseMessage response = UserClient.GetAsync("api/users/"+ login.user_email).Result;
+                    //Global var represents current user
+                    u = response.Content.ReadAsAsync<User>().Result;
+                    
                     return RedirectToAction("Profile");
+
+                }
+                    
                 else
                 {
                     return RedirectToAction("Login");
@@ -65,7 +78,10 @@ namespace FacebookConsumer.Controllers
             {
                 // TODO: Add insert logic here
                 if (RegisterUser(user).IsSuccessStatusCode)
+                {
+                    
                     return RedirectToAction("Login");
+                }
                 else
                 {
                     return RedirectToAction("Create");
@@ -122,8 +138,12 @@ namespace FacebookConsumer.Controllers
             {
                 return View();
             }
+
         }
-         HttpResponseMessage RegisterUser(User user)
+
+       
+
+        HttpResponseMessage RegisterUser(User user)
         {
             HttpResponseMessage response =  UserClient.PostAsJsonAsync("/api/users", user).Result; 
             response.EnsureSuccessStatusCode();
@@ -137,6 +157,74 @@ namespace FacebookConsumer.Controllers
             // return URI of the created resource.
             return response;
         }
+
+
+
+        //GET:View Friend or not Friend Profile 
+        //user/ViewUserProfile/3
+        [HttpGet]
+        public  ActionResult ViewUserProfile(int id)
+        {
+            HttpResponseMessage response =  UserClient.GetAsync("api/users/" +id).Result;
+            User u =  response.Content.ReadAsAsync<User>().Result;
+            HttpResponseMessage response1 =  UserClient.GetAsync("api/User_Friends/" +u.user_id).Result;
+            if (response.IsSuccessStatusCode)
+            {
+                List<User_Friends> Friends =  response1.Content.ReadAsAsync<List<User_Friends>>().Result;
+                foreach (var item in Friends)
+                {
+                    if (item.user_id == id)
+                        return View("FriendProfile", u);
+
+                }
+
+            }
+            return View("NonFriendProfile",u);
+        }
+
+        //GET:Search About User
+        //user/search/had
+        [HttpGet]
+        public async Task<ActionResult>Search(String Searchstr)
+        {
+            HttpResponseMessage response = await UserClient.GetAsync("api/users/" + Searchstr);
+            if (response.IsSuccessStatusCode)
+            {
+                List<User> users = await response.Content.ReadAsAsync<List<User>>();
+                if(users.Count==0)
+                    return View("NoResult");
+                else
+                    return View("SearchResult", users);
+            }
+            else
+                return View("NoResult");
+
+        }
+
+        //user/unfriend/2
+        public ActionResult Unfriend(int id)
+        {
+            HttpResponseMessage res = UserClient.DeleteAsync("api/user_friends/"+u.user_id+"/"+id).Result;
+            return View("Index");
+        }
+
+        //user/addfriend/2
+        public ActionResult Addfriend(int id)
+        {
+                      
+            User_Friends userFriend = new User_Friends { user_id = u.user_id, user_friend_id = id, request = false };
+            HttpResponseMessage response =  UserClient.PostAsJsonAsync("api/user_friends/",userFriend).Result;
+            return View("Index");
+        }
+
+        //user/block/1
+        public ActionResult Block(int id)
+        {
+            Blocked_Users BlockedUser = new Blocked_Users { user_id = u.user_id, user_block_id = id };
+            HttpResponseMessage response = UserClient.PostAsJsonAsync("api/blocked_user/", BlockedUser).Result;
+            return View("Index");
+        }
+
 
     }
 }
