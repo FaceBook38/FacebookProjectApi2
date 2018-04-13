@@ -27,13 +27,13 @@ namespace FaceBookAPI.Controllers
         [ResponseType(typeof(User_Friends))]
         public IHttpActionResult GetUser_Friends(int id)
         {
-            List<User_Friends> user_Friends = db.User_Friends.Where(u => u.user_id == id && u.request==true).ToList();
-            if (user_Friends == null)
+            User_Friends user_Friend = db.User_Friends.FirstOrDefault(u => u.user_friend_id == id && u.request==true);
+            if (user_Friend == null)
             {
                 return NotFound();
             }
 
-            return Ok(user_Friends);
+            return Ok(user_Friend);
         }
 
         // PUT: api/User_Friends/5

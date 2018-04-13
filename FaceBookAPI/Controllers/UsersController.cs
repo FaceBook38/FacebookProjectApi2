@@ -52,7 +52,7 @@ namespace FaceBookAPI.Controllers
 
         public IHttpActionResult GetUser(int id)
         {
-            User user = db.Users.FirstOrDefault(user_ => user_.user_id == id && user_.deleted == false && user_.user_type == "user");
+            User user = db.Users.FirstOrDefault(user_ => user_.user_id == id && user_.deleted == false);
             if (user == null)
             {
                 return NotFound();
