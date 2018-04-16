@@ -14,26 +14,32 @@ namespace FaceBookAPI.Controllers
 {
     public class User_FriendsController : ApiController
     {
-        
         private FacebookContext db = new FacebookContext();
 
         // GET: api/User_Friends
         public IQueryable<User_Friends> GetUser_Friends()
         {
-            return db.User_Friends;
+            return db.User_Friends.Where(u=>u.request==true);
         }
 
         // GET: api/User_Friends/5
         [ResponseType(typeof(User_Friends))]
-        public IHttpActionResult GetUser_Friends(int id)
+        public IHttpActionResult GetUser_Friends(int id)//id => id friend elly 3oza agebo
         {
-            User_Friends user_Friend = db.User_Friends.FirstOrDefault(u => u.user_friend_id == id && u.request==true);
-            if (user_Friend == null)
+            //id is belonge me and i want to bringe all friends
+          //  var user_Friends = from db in db.User_Friends
+                                            //  where  db.user_id = id
+                                            //select db.user_friend_id; 
+            var user_Friends = db.User_Friends.Where(u => u.user_id == id).Select(u => u.user_friend_id);
+
+
+                //FirstOrDefault(user => user.user_friend_id == id && user.request == true );
+            if (user_Friends == null)
             {
                 return NotFound();
             }
 
-            return Ok(user_Friend);
+            return Ok(user_Friends);
         }
 
         // PUT: api/User_Friends/5
@@ -102,13 +108,10 @@ namespace FaceBookAPI.Controllers
         }
 
         // DELETE: api/User_Friends/5
-        [Route("api/user_friend/{Friendid:int}/{Userid:int}")]
         [ResponseType(typeof(User_Friends))]
-        public IHttpActionResult DeleteUser_Friends(int Friendid,int Userid)
+        public IHttpActionResult DeleteUser_Friends(int id)
         {
-            //i should replace 1 by the id of the current user
-           
-            User_Friends user_Friends = db.User_Friends.Where(u=>u.user_id==Userid ).FirstOrDefault(p=>p.user_friend_id==Friendid);
+            User_Friends user_Friends = db.User_Friends.Find(id);
             if (user_Friends == null)
             {
                 return NotFound();
