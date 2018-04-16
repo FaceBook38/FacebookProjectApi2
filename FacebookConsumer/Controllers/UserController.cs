@@ -47,7 +47,7 @@ namespace FacebookConsumer.Controllers
                         {
                             return RedirectToAction("Profile");
                         }
-                        else
+                        else //if the user is admin 
                         {
                             //Admin page
                         }

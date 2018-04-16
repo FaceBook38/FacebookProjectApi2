@@ -1,5 +1,7 @@
 
 
+using System.Web.UI.WebControls;
+
 namespace FacebookConsumer.Models.FaceBook
 {
     using System;
@@ -28,16 +30,21 @@ namespace FacebookConsumer.Models.FaceBook
 
         [Key]
         public int user_id { get; set; }
-
+        [EmailAddress]
         [Required]
         [StringLength(50)]
         [Display(Name = "Email")]
         public string user_email { get; set; }
-
+        [MinLength(8)]
+        [MaxLength(12)]
         [Required]
+        [DataType(DataType.Password)]
         [StringLength(50)]
         [Display(Name = "Password")]
         public string user_password { get; set; }
+        [DataType(DataType.Password,ErrorMessage = "password must contain characters and numbers")]
+        [MinLength(8,ErrorMessage = "requires valid length 8 -- 12")]
+        [MaxLength(12, ErrorMessage = "requires valid length 8 -- 12")]
         [Display(Name = "Confirm Password")]
         [Compare("user_password", ErrorMessage = "Please match your password")]
         public string confirm_password { get; set; }
@@ -58,6 +65,7 @@ namespace FacebookConsumer.Models.FaceBook
         [StringLength(10)]
         public string bio { get; set; }
         [Display(Name = "Age")]
+        [Range(18,60)]
         public int? age { get; set; }
         [Display(Name = "Profile picture")]
         [Column(TypeName = "image")]
@@ -81,4 +89,5 @@ namespace FacebookConsumer.Models.FaceBook
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<User_Friends> User_Friends { get; set; }
     }
+
 }
