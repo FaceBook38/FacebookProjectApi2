@@ -9,6 +9,10 @@ namespace FaceBookAPI
     {
         public static void Register(HttpConfiguration config)
         {
+
+            config.Formatters.Remove(config.Formatters.XmlFormatter);
+            config.Formatters.JsonFormatter.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+            config.Formatters.JsonFormatter.SerializerSettings.MaxDepth = 2;
             // Web API configuration and services
 
             // Web API routes

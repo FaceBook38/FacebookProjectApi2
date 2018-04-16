@@ -71,6 +71,24 @@ namespace FaceBookAPI.Controllers
 
             return StatusCode(HttpStatusCode.NoContent);
         }
+        // GET: api/Users/Posts/5
+        //edit get all posts that deleted = false  and it's id ==5
+        [ResponseType(typeof(Post))]
+        [Route("api/Users/Posts/{id:int}")]
+        public IHttpActionResult GetPost(int id)
+        {
+           List<UserPost> posts = (from p in db.Posts
+                                from u in db.Users
+                                where p.user_id == id && p.deleted == false && p.user_id==u.user_id
+                                select new UserPost() {user=u, post=p}).ToList();
+            List < Post > post = db.Posts.Where(p => p.user_id == id && p.deleted == false).ToList();
+            if (posts.Count==0)
+            {
+                return NotFound();
+            }
+
+            return Ok(posts);
+        }
 
         // POST: api/Users
         [ResponseType(typeof(User))]
