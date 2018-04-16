@@ -17,6 +17,7 @@ namespace FacebookConsumer.Controllers
 
         public UserController()
         {
+            
             //port number is not static
             UserClient.BaseAddress = new Uri("http://localhost:54555");
         }
@@ -28,7 +29,7 @@ namespace FacebookConsumer.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult Login(LoginViewModel login)
+        public  ActionResult Login(LoginViewModel login)
         {
             try
             {
@@ -147,7 +148,10 @@ namespace FacebookConsumer.Controllers
                 return View();
             }
         }
-         HttpResponseMessage RegisterUser(User user)
+
+       
+
+        HttpResponseMessage RegisterUser(User user)
         {
             HttpResponseMessage response =  UserClient.PostAsJsonAsync("/api/users", user).Result; 
             response.EnsureSuccessStatusCode();
@@ -161,6 +165,103 @@ namespace FacebookConsumer.Controllers
             // return URI of the created resource.
             return response;
         }
+
+
+
+        //GET:View Friend or not Friend Profile 
+        //user/ViewUserProfile/3
+        [HttpGet]
+        public  ActionResult ViewUserProfile(int id)
+        {
+            HttpResponseMessage response =  UserClient.GetAsync("api/users/" +id).Result;
+            User u =  response.Content.ReadAsAsync<User>().Result;
+
+            int myid =(int)Session["user_id"];
+            HttpResponseMessage response1 = UserClient.GetAsync("api/users/"+myid).Result;
+            User me = response.Content.ReadAsAsync<User>().Result;
+
+            if (response.IsSuccessStatusCode && response1.IsSuccessStatusCode)
+            {
+                
+                foreach (var item in me.User_Friends)
+                {
+                    if (item.user_friend_id == id)
+                        return View("FriendProfile", u);
+
+                }
+
+            }
+            return View("NonFriendProfile",u);
+        }
+
+        //GET:Search About User
+        //user/search/had
+        [HttpGet]
+        public  ActionResult Search(String Searchstr)
+        {
+            HttpResponseMessage response =  UserClient.GetAsync("api/users/" +Searchstr).Result;
+            if (response.IsSuccessStatusCode)
+            {
+                List<User> users =  response.Content.ReadAsAsync<List<User>>().Result;
+                if(users.Count==0)
+                    return View("NoResult");
+                else
+                    return View("SearchResult", users);
+            }
+            else
+                return View("NoResult");
+
+        }
+
+        //user/unfriend/2
+        public ActionResult Unfriend(int id)
+        {
+            HttpResponseMessage res = UserClient.DeleteAsync($"api/user_friends/{id}/{(int)Session["user_id"]}").Result;
+            if(res.IsSuccessStatusCode)
+            {
+                return View("Index");
+            }
+            else
+            {
+                return View("error");
+            }
+            
+        }
+
+        //user/addfriend/2
+        public ActionResult Addfriend(int id)
+        {
+            HttpResponseMessage res = UserClient.GetAsync("api/user_friends" + id).Result;
+            User_Friends UserFriend = res.Content.ReadAsAsync<User_Friends>().Result;
+            UserFriend.user_id = (int)Session["user_id"];
+            HttpResponseMessage response =  UserClient.PostAsJsonAsync("api/user_friends/",UserFriend).Result;
+            if (response.IsSuccessStatusCode)
+            {
+                return View("Index");
+            }
+            else
+            {
+                return View("error");
+            }
+        }
+
+        //user/block/1
+        public ActionResult Block(int id)
+        {
+            HttpResponseMessage response = UserClient.GetAsync("api/blocked_user/" + id).Result;
+            Blocked_Users BlockedUser = response.Content.ReadAsAsync<Blocked_Users>().Result;
+            BlockedUser.user_id = (int)Session["user_id"];
+            HttpResponseMessage response1 = UserClient.PostAsJsonAsync("api/blocked_user/", BlockedUser).Result;
+            if (response.IsSuccessStatusCode)
+            {
+                return View("Index");
+            }
+            else
+            {
+                return View("error");
+            }
+        }
+
 
     }
 }

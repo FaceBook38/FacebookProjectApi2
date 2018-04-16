@@ -41,19 +41,41 @@ namespace FaceBookAPI.Controllers
             return Ok(user);
         }
 
+        
+
+
         // GET: api/Users/5
         // GET: api/Users/5 and deleted =false
+        [HttpGet]
         [ResponseType(typeof(User))]
-        [Route("api/users/getuser")]
+        [Route("api/users/{id:int}")]
+
         public IHttpActionResult GetUser(int id)
         {
-            User user = db.Users.FirstOrDefault(user_ => user_.user_id == id && user_.deleted == false && user_.user_type == "user");
+            User user = db.Users.FirstOrDefault(user_ => user_.user_id == id && user_.deleted == false);
             if (user == null)
             {
                 return NotFound();
             }
 
             return Ok(user);
+        }
+
+
+        //GET:User By Name For Search
+        [Route("api/users/{name:alpha}")]
+        [ResponseType(typeof(User))]
+        [HttpGet]
+        public IHttpActionResult GetUserByName(string name)
+        {
+            List<User> users = db.Users.Where(u => u.user_name.Contains(name)||u.user_email==name && u.deleted==false).ToList();
+            if (users == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(users);
+
         }
 
         // PUT: api/Users/5
