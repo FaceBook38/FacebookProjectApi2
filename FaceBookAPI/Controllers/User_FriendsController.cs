@@ -14,18 +14,17 @@ namespace FaceBookAPI.Controllers
 {
     public class User_FriendsController : ApiController
     {
-        
         private FacebookContext db = new FacebookContext();
 
         // GET: api/User_Friends
         public IQueryable<User_Friends> GetUser_Friends()
         {
-            return db.User_Friends;
+            return db.User_Friends.Where(u=>u.request==true);
         }
 
         // GET: api/User_Friends/5
         [ResponseType(typeof(User_Friends))]
-        public IHttpActionResult GetUser_Friends(int id)
+        public IHttpActionResult GetUser_Friends(int id)//id => id friend elly 3oza agebo
         {
             List<User_Friends> user_Friend = db.User_Friends.Where(u => u.user_id == id && u.request==true).ToList<User_Friends>();
             if (user_Friend == null)
@@ -33,7 +32,7 @@ namespace FaceBookAPI.Controllers
                 return NotFound();
             }
 
-            return Ok(user_Friend);
+            return Ok(user_Friends);
         }
 
         // PUT: api/User_Friends/5

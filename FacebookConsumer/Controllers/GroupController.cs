@@ -64,10 +64,10 @@ namespace FacebookConsumer.Controllers
 
             using (var client = new HttpClient())
             {
-                client.BaseAddress = new Uri("http://localhost:54555/api/Groups");
+                client.BaseAddress = new Uri("http://localhost:54555");
                 group.group_admin = 1;
                 group.deleted = false;
-                var postTask = client.PostAsJsonAsync<Group>("groups", group);
+                var postTask = client.PostAsJsonAsync<Group>("/api/Groups", group);
                 postTask.Wait();
                 var result = postTask.Result;
                 if (result.IsSuccessStatusCode)

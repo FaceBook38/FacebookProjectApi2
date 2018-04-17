@@ -10,7 +10,6 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using FaceBookAPI.Models.FaceBook;
 using FaceBookAPI.Models.ViewModels;
-using Microsoft.ApplicationInsights.Extensibility.Implementation;
 
 namespace FaceBookAPI.Controllers
 {
@@ -38,21 +37,17 @@ namespace FaceBookAPI.Controllers
             {
                 return NotFound();
             }
+
             return Ok(user);
         }
 
-        
-
-
         // GET: api/Users/5
         // GET: api/Users/5 and deleted =false
-        [HttpGet]
         [ResponseType(typeof(User))]
-        [Route("api/users/{id:int}")]
-
-        public IHttpActionResult GetUser(int id)
+      //  [Route("api/users/getuser")]
+        public IHttpActionResult GetUser([FromUri]int id)
         {
-            User user = db.Users.FirstOrDefault(user_ => user_.user_id == id && user_.deleted == false);
+            User user = db.Users.FirstOrDefault(user_ => user_.user_id == id && user_.deleted == false && user_.user_type == "user");
             if (user == null)
             {
                 return NotFound();
@@ -80,7 +75,7 @@ namespace FaceBookAPI.Controllers
 
         // PUT: api/Users/5
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutUser(int id, User user)
+        public IHttpActionResult PutUser([FromUri]int id, User user)
         {
             if (!ModelState.IsValid)
             {

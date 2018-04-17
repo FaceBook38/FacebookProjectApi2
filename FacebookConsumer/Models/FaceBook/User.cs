@@ -36,6 +36,7 @@ namespace FacebookConsumer.Models.FaceBook
 
         [Required]
         [StringLength(50)]
+        
         [Display(Name = "Password")]
         public string user_password { get; set; }
         [Display(Name = "Confirm Password")]
@@ -55,7 +56,7 @@ namespace FacebookConsumer.Models.FaceBook
         [StringLength(50)]
         public string lname { get; set; }
 
-        [StringLength(10)]
+        [StringLength(500)]
         public string bio { get; set; }
         [Display(Name = "Age")]
         public int? age { get; set; }

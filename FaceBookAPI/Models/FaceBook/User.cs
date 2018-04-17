@@ -46,7 +46,7 @@ namespace FaceBookAPI.Models.FaceBook
         [StringLength(50)]
         public string lname { get; set; }
 
-        [StringLength(10)]
+        [StringLength(500)]
         public string bio { get; set; }
 
         public int? age { get; set; }
