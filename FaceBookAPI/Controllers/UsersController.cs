@@ -63,12 +63,12 @@ namespace FaceBookAPI.Controllers
 
 
         //GET:User By Name For Search
-        [Route("api/users/{name:alpha}")]
+        [Route("api/users/{id:int}/{name:alpha}")]
         [ResponseType(typeof(User))]
         [HttpGet]
-        public IHttpActionResult GetUserByName(string name)
-        {
-            List<User> users = db.Users.Where(u => u.user_name.Contains(name)||u.user_email==name && u.deleted==false).ToList();
+        public IHttpActionResult GetUserByName(int id, string name)
+        {   
+            List<User> users = db.Users.Where(u => u.user_name.ToLower().Contains(name.ToLower())||u.user_email.ToLower()==name.ToLower() && u.deleted==false && u.user_id!=id).ToList<User>();
             if (users == null)
             {
                 return NotFound();

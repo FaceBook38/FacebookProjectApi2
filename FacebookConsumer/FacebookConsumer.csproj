@@ -247,7 +247,7 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-	  <Content Include="Views\Group\Index.cshtml" />
+    <Content Include="Views\Group\Index.cshtml" />
     <Content Include="Views\Group\Create.cshtml" />
     <Content Include="Views\User\Create.cshtml" />
     <Content Include="Views\User\Login.cshtml" />
@@ -265,6 +265,9 @@
     <Content Include="Views\User\FriendProfile.cshtml" />
     <Content Include="Views\User\NonFriendProfile.cshtml" />
     <Content Include="Views\Shared\Index.cshtml" />
+    <Content Include="Views\User\UnFriendError.cshtml" />
+    <Content Include="Views\User\AddFriendError.cshtml" />
+    <Content Include="Views\User\Block.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
