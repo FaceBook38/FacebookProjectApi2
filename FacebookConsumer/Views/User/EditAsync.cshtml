@@ -1,10 +1,9 @@
 ﻿@model FacebookConsumer.Models.FaceBook.User
 
-
-@using (Html.BeginForm("create","User",FormMethod.Post))
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-
+    
     <div class="form-horizontal">
         <h4>User</h4>
         <hr />
@@ -17,6 +16,8 @@
             </div>
         </div>
 
+        @Html.HiddenFor(model => model.user_id)
+
         <div class="form-group">
             @Html.LabelFor(model => model.user_email, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -28,17 +29,22 @@
         <div class="form-group">
             @Html.LabelFor(model => model.user_password, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.PasswordFor(model => model.user_password, new { @class = "form-control" } )
+                @Html.EditorFor(model => model.user_password, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.user_password, "", new { @class = "text-danger" })
             </div>
         </div>
+
         <div class="form-group">
             @Html.LabelFor(model => model.confirm_password, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.PasswordFor(model => model.confirm_password, new { @class = "form-control" } )
+                @Html.PasswordFor(model => model.confirm_password, new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.confirm_password, "", new { @class = "text-danger" })
             </div>
         </div>
+
+       
+
+        
 
         <div class="form-group">
             @Html.LabelFor(model => model.fname, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -57,6 +63,14 @@
         </div>
 
         <div class="form-group">
+            @Html.LabelFor(model => model.bio, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.bio, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.bio, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
             @Html.LabelFor(model => model.age, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.age, new { htmlAttributes = new { @class = "form-control" } })
@@ -64,26 +78,14 @@
             </div>
         </div>
 
-        @*<div class="form-group">
-                @Html.LabelFor(model => model.profile_image, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.profile_image, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.profile_image, "", new { @class = "text-danger" })
-                </div>
-            </div>*@
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Register" class="btn btn-primary" style="background-color:#4d636f " />
+                <input type="submit" value="Save" class="btn btn-default" />
             </div>
         </div>
     </div>
 }
 
-@*<div>
-        @Html.ActionLink("Back to List", "Index")
-    </div>*@
-
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
-
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

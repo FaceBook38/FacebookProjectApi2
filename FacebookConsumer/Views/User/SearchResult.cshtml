@@ -1,4 +1,4 @@
-﻿@model IEnumerable<FacebookConsumer.Models.FaceBook.User>
+﻿@model IEnumerable<FacebookConsumer.Models.FaceBook.User_Friends>
 
 <p>
     @Html.ActionLink("Create New", "Create")
@@ -6,50 +6,28 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.user_name)
+            @Html.DisplayNameFor(model => model.User.user_name)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.user_email)
-        </th>
-       
-        <th>
-            @Html.DisplayNameFor(model => model.bio)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.age)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.profile_image)
+            @Html.DisplayNameFor(model => model.request)
         </th>
         <th></th>
     </tr>
 
-    @foreach (var item in Model)
-    {
+@foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.user_name)
+            @Html.DisplayFor(modelItem => item.User.user_name)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.user_email)
-        </td>
-       
-        <td>
-            @Html.DisplayFor(modelItem => item.bio)
+            @Html.DisplayFor(modelItem => item.request)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.age)
+            
+            @Html.ActionLink("Details", "ViewUserProfile", new {  id=item.user_id  }) 
+           
         </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.profile_image)
-        </td>
-        <td>
-            @Html.ActionLink("Details", "ViewUserProfile", new { id = item.user_id }) |
-
-        </td>
-
     </tr>
-    }
+}
 
 </table>
-
