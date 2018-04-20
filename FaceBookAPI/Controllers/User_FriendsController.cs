@@ -26,8 +26,8 @@ namespace FaceBookAPI.Controllers
         [ResponseType(typeof(User_Friends))]
         public IHttpActionResult GetUser_Friends(int id)//id => id friend elly 3oza agebo
         {
-            List<User_Friends> user_Friend = db.User_Friends.Where(u => u.user_id == id && u.request==true).ToList<User_Friends>();
-            if (user_Friend == null)
+            List<User_Friends> user_Friends = db.User_Friends.Where(u => u.user_id == id && u.request==true).ToList<User_Friends>();
+            if (user_Friends == null)
             {
                 return NotFound();
             }

@@ -37,6 +37,7 @@ namespace FacebookConsumer.Controllers
             {
                 // TODO: Add insert logic here
                 if (LoginUser(login).IsSuccessStatusCode)
+                    
                     return RedirectToAction("Profile");
                 else
                 {
