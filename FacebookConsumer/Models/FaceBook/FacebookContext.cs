@@ -1,7 +1,10 @@
-using System.Data.Entity;
-
 namespace FacebookConsumer.Models.FaceBook
 {
+    using System;
+    using System.Data.Entity;
+    using System.ComponentModel.DataAnnotations.Schema;
+    using System.Linq;
+
     public partial class FacebookContext : DbContext
     {
         public FacebookContext()
@@ -13,13 +16,23 @@ namespace FacebookConsumer.Models.FaceBook
         public virtual DbSet<Comment> Comments { get; set; }
         public virtual DbSet<Group_Members> Group_Members { get; set; }
         public virtual DbSet<Group_Posts> Group_Posts { get; set; }
+        public virtual DbSet<GroupMessage> GroupMessages { get; set; }
         public virtual DbSet<Group> Groups { get; set; }
         public virtual DbSet<Post> Posts { get; set; }
+        //public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<User_Friends> User_Friends { get; set; }
+        public virtual DbSet<User_likes> User_likes { get; set; }
         public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<UsersMessage> UsersMessages { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Group_Members>()
+                .HasMany(e => e.GroupMessages)
+                .WithRequired(e => e.Group_Members)
+                .HasForeignKey(e => new { e.group_id, e.user_id })
+                .WillCascadeOnDelete(false);
+
             modelBuilder.Entity<Group>()
                 .Property(e => e.group_name)
                 .IsUnicode(false);
@@ -45,10 +58,6 @@ namespace FacebookConsumer.Models.FaceBook
 
             modelBuilder.Entity<User>()
                 .Property(e => e.user_type)
-                .IsFixedLength();
-
-            modelBuilder.Entity<User>()
-                .Property(e => e.bio)
                 .IsFixedLength();
 
             modelBuilder.Entity<User>()

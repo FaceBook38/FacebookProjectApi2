@@ -373,5 +373,20 @@ namespace FacebookConsumer.Controllers
                 return View("Error");
 
         }
+        public ActionResult Chat()
+        {
+            HttpClient client = new HttpClient();
+            client.BaseAddress = new Uri(baseURL);
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            HttpResponseMessage response = client.GetAsync("api/users/" + int.Parse(Session["user_id"].ToString())).Result;
+            if (response.IsSuccessStatusCode)
+            {
+                var user = response.Content.ReadAsAsync<User>().Result;
+                return PartialView("ChatView", user);
+            }
+            else return View("Error");
+
+
+        }
     }
 }

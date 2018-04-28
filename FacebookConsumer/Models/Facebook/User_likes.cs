@@ -6,17 +6,16 @@ namespace FacebookConsumer.Models.FaceBook
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    public partial class Blocked_Users
+    public partial class User_likes
     {
         [Key]
-        [Column(Order = 0)]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int user_id { get; set; }
+        public int like_id { get; set; }
 
-        [Key]
-        [Column(Order = 1)]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int user_block_id { get; set; }
+        public int? user_id { get; set; }
+
+        public int? post_id { get; set; }
+
+        public virtual Post Post { get; set; }
 
         public virtual User User { get; set; }
     }

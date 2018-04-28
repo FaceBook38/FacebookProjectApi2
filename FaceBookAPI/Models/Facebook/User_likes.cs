@@ -1,4 +1,4 @@
-namespace FacebookConsumer.Models.FaceBook
+namespace FaceBookAPI.Models.FaceBook
 {
     using System;
     using System.Collections.Generic;
@@ -6,19 +6,14 @@ namespace FacebookConsumer.Models.FaceBook
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    public partial class Comment
+    public partial class User_likes
     {
         [Key]
-        public int comment_id { get; set; }
+        public int like_id { get; set; }
 
-        public int post_id { get; set; }
+        public int? user_id { get; set; }
 
-        public int user_id { get; set; }
-
-        [StringLength(100)]
-        public string content { get; set; }
-
-        public bool? deleted { get; set; }
+        public int? post_id { get; set; }
 
         public virtual Post Post { get; set; }
 

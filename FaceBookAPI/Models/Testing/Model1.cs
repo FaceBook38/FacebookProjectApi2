@@ -1,14 +1,14 @@
-namespace FaceBookAPI.Models.FaceBook
+namespace FaceBookAPI.Models.Testing
 {
     using System;
     using System.Data.Entity;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Linq;
 
-    public partial class FacebookContext : DbContext
+    public partial class Model1 : DbContext
     {
-        public FacebookContext()
-            : base("name=FacebookContext")
+        public Model1()
+            : base("name=Model1")
         {
         }
 
@@ -90,15 +90,16 @@ namespace FaceBookAPI.Models.FaceBook
                 .HasMany(e => e.User_Friends)
                 .WithRequired(e => e.User)
                 .WillCascadeOnDelete(false);
-            modelBuilder.Entity<User>()
-               .HasMany(e => e.UsersMessagesSender)
-               .WithRequired(e => e.Sender)
-               .HasForeignKey(e => e.sender_id)
-               .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<User>()
-                .HasMany(e => e.UsersMessagesRecevier)
-                .WithRequired(e => e.Receiver)
+                .HasMany(e => e.UsersMessages)
+                .WithRequired(e => e.User)
+                .HasForeignKey(e => e.sender_id)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<User>()
+                .HasMany(e => e.UsersMessages1)
+                .WithRequired(e => e.User1)
                 .HasForeignKey(e => e.reciver_id)
                 .WillCascadeOnDelete(false);
         }

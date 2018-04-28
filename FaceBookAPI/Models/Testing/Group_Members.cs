@@ -1,4 +1,4 @@
-namespace FaceBookAPI.Models.FaceBook
+namespace FaceBookAPI.Models.Testing
 {
     using System;
     using System.Collections.Generic;

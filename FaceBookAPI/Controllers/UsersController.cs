@@ -31,7 +31,8 @@ namespace FaceBookAPI.Controllers
         [ResponseType(typeof(User))]
         public IHttpActionResult LoginUser(LoginViewModel login)
         {
-            
+
+
             User user = db.Users.FirstOrDefault(user_ => user_.user_email == login.user_email&&user_.user_password == login.user_password && user_.deleted == false && user_.user_type == "user");
             if (user == null)
             {

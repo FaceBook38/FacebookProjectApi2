@@ -1,5 +1,3 @@
-
-
 namespace FacebookConsumer.Models.FaceBook
 {
     using System;
@@ -19,8 +17,9 @@ namespace FacebookConsumer.Models.FaceBook
             Groups = new HashSet<Group>();
             Posts = new HashSet<Post>();
             User_Friends = new HashSet<User_Friends>();
+            User_likes = new HashSet<User_likes>();
         }
-
+        //
         [Required]
         [StringLength(50)]
         [Display(Name = "User name")]
@@ -36,7 +35,7 @@ namespace FacebookConsumer.Models.FaceBook
 
         [Required]
         [StringLength(50)]
-        
+
         [Display(Name = "Password")]
         public string user_password { get; set; }
         [Display(Name = "Confirm Password")]
@@ -81,5 +80,8 @@ namespace FacebookConsumer.Models.FaceBook
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<User_Friends> User_Friends { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<User_likes> User_likes { get; set; }
     }
 }
