@@ -21,14 +21,6 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.user_password)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.user_password)
-        </dd>
-
-        <dt>
             @Html.DisplayNameFor(model => model.fname)
         </dt>
 
@@ -60,12 +52,19 @@
             @Html.DisplayFor(model => model.age)
         </dd>
 
+        <dt>
+            @Html.DisplayNameFor(model => model.profile_image)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.profile_image)
+        </dd>
+
     </dl>
 </div>
 <p>
-    @Html.ActionLink("UnFriend", "UnFriend", new { id = Model.user_id })|
+    @Html.ActionLink("Add Friend", "AddFriend", new { id = Model.user_id }) |
     @Html.ActionLink("Block", "Block", new { id = Model.user_id })|
 
-
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to List", "Index","Home")
 </p>

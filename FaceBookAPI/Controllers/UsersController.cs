@@ -56,6 +56,23 @@ namespace FaceBookAPI.Controllers
             return Ok(user);
         }
 
+
+        //GET:User By Name For Search
+        [Route("api/users/{id:int}/{name:alpha}")]
+        [ResponseType(typeof(User))]
+        [HttpGet]
+        public IHttpActionResult GetUserByName(int id, string name)
+        {   
+            List<User> users = db.Users.Where(u => u.user_name.ToLower().Contains(name.ToLower())||u.user_email.ToLower()==name.ToLower() && u.deleted==false && u.user_id!=id).ToList<User>();
+            if (users == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(users);
+
+        }
+
         // PUT: api/Users/5
         [ResponseType(typeof(void))]
         public IHttpActionResult PutUser([FromUri]int id, User user)

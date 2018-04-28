@@ -26,14 +26,7 @@ namespace FaceBookAPI.Controllers
         [ResponseType(typeof(User_Friends))]
         public IHttpActionResult GetUser_Friends(int id)//id => id friend elly 3oza agebo
         {
-            //id is belonge me and i want to bringe all friends
-          //  var user_Friends = from db in db.User_Friends
-                                            //  where  db.user_id = id
-                                            //select db.user_friend_id; 
-            var user_Friends = db.User_Friends.Where(u => u.user_id == id).Select(u => u.user_friend_id);
-
-
-                //FirstOrDefault(user => user.user_friend_id == id && user.request == true );
+            List<User_Friends> user_Friends = db.User_Friends.Where(u => u.user_id == id && u.request==true).ToList<User_Friends>();
             if (user_Friends == null)
             {
                 return NotFound();
@@ -108,16 +101,24 @@ namespace FaceBookAPI.Controllers
         }
 
         // DELETE: api/User_Friends/5
+        [Route("api/user_friends/{Myid:int}/{Id:int}")]
         [ResponseType(typeof(User_Friends))]
-        public IHttpActionResult DeleteUser_Friends(int id)
+        public IHttpActionResult DeleteUser_Friends(int Myid,int Id)
         {
-            User_Friends user_Friends = db.User_Friends.Find(id);
-            if (user_Friends == null)
+            
+
+            User_Friends user_Friends = db.User_Friends.FirstOrDefault(p=>p.user_id==Myid&&p.user_friend_id==Id);
+            User_Friends user_Friends1 = db.User_Friends.FirstOrDefault(p => p.user_id == Id && p.user_friend_id == Myid);
+
+
+            if (user_Friends == null||user_Friends1==null)
             {
                 return NotFound();
             }
 
             db.User_Friends.Remove(user_Friends);
+            db.User_Friends.Remove(user_Friends1);
+
             db.SaveChanges();
 
             return Ok(user_Friends);

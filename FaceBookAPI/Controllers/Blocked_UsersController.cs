@@ -12,7 +12,7 @@ using FaceBookAPI.Models.FaceBook;
 
 namespace FaceBookAPI.Controllers
 {
-     
+
     public class Blocked_UsersController : ApiController
     {
         private FacebookContext db = new FacebookContext();
@@ -24,10 +24,11 @@ namespace FaceBookAPI.Controllers
         }
 
         // GET: api/Blocked_Users/5
+        //return List Of Blocked Users of user whose id =5
         [ResponseType(typeof(Blocked_Users))]
         public IHttpActionResult GetBlocked_Users(int id)
         {
-            Blocked_Users blocked_Users = db.Blocked_Users.Find(id);
+            List<Blocked_Users> blocked_Users = db.Blocked_Users.Where(u => u.user_id == id).ToList<Blocked_Users>();
             if (blocked_Users == null)
             {
                 return NotFound();
@@ -103,9 +104,9 @@ namespace FaceBookAPI.Controllers
 
         // DELETE: api/Blocked_Users/5
         [ResponseType(typeof(Blocked_Users))]
-        public IHttpActionResult DeleteBlocked_Users(int id)
+        public IHttpActionResult DeleteBlocked_Users(int UserId, int MyID)
         {
-            Blocked_Users blocked_Users = db.Blocked_Users.Find(id);
+            Blocked_Users blocked_Users = db.Blocked_Users.FirstOrDefault(p => p.user_id == MyID && p.user_block_id == UserId);
             if (blocked_Users == null)
             {
                 return NotFound();
