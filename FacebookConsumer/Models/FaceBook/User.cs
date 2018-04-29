@@ -1,6 +1,7 @@
+
+
 namespace FacebookConsumer.Models.FaceBook
 {
-    using FaceBookAPI.Models.FaceBook;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
@@ -13,8 +14,8 @@ namespace FacebookConsumer.Models.FaceBook
         public User()
         {
             Blocked_Users = new HashSet<Blocked_Users>();
-            Comments = new HashSet<Comment>();
             Likes = new HashSet<Like>();
+            Comments = new HashSet<Comment>();
             Group_Members = new HashSet<Group_Members>();
             Groups = new HashSet<Group>();
             Posts = new HashSet<Post>();
@@ -23,6 +24,7 @@ namespace FacebookConsumer.Models.FaceBook
 
         [Required]
         [StringLength(50)]
+        [Display(Name = "User name")]
         public string user_name { get; set; }
 
         [Key]
@@ -30,11 +32,17 @@ namespace FacebookConsumer.Models.FaceBook
 
         [Required]
         [StringLength(50)]
+        [Display(Name = "Email")]
         public string user_email { get; set; }
 
         [Required]
         [StringLength(50)]
+        
+        [Display(Name = "Password")]
         public string user_password { get; set; }
+        [Display(Name = "Confirm Password")]
+        [Compare("user_password", ErrorMessage = "Please match your password")]
+        public string confirm_password { get; set; }
 
         public bool? deleted { get; set; }
 
@@ -43,16 +51,17 @@ namespace FacebookConsumer.Models.FaceBook
 
         [Required]
         [StringLength(50)]
+        [Display(Name = "First name")]
         public string fname { get; set; }
-
+        [Display(Name = "Last name")]
         [StringLength(50)]
         public string lname { get; set; }
 
-        [StringLength(10)]
+        [StringLength(500)]
         public string bio { get; set; }
-
+        [Display(Name = "Age")]
         public int? age { get; set; }
-
+        [Display(Name = "Profile picture")]
         [Column(TypeName = "image")]
         public byte[] profile_image { get; set; }
 
@@ -62,7 +71,6 @@ namespace FacebookConsumer.Models.FaceBook
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Comment> Comments { get; set; }
         public virtual ICollection<Like> Likes { get; set; }
-
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Group_Members> Group_Members { get; set; }
 

@@ -1,0 +1,39 @@
+﻿@model IEnumerable<FacebookConsumer.Models.FaceBook.Group>
+@{
+    ViewBag.Title = "Groups";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+<table>
+    <tr>
+        <td>Image</td>
+        <td>Group ID</td>
+        <td>Name</td>
+        <td>Admin</td>
+
+    </tr>
+    @foreach (var item in Model)
+    {
+    <tr>
+        @{
+            if (item.group_image == null)
+            {
+                <td></td>
+            }
+
+            if (item.group_image != null)
+            {
+                String img64 = Convert.ToBase64String(item.group_image);
+                String img64Url = string.Format("data:image/" + ";base64,{0}", img64); //imagetype can be e.g. gif, jpeg, png etc.
+            <td><img src="@img64Url" width="20" height="20" /></td>
+    } }
+        <td>@item.group_id</td>
+        <td>@item.group_name</td>
+        <td>@item.group_admin</td>
+
+
+
+    </tr>
+    }
+</table>

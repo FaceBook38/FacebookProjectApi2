@@ -10,6 +10,7 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using FaceBookAPI.Models.FaceBook;
 using FacebookConsumer.Models.FaceBook;
+using FaceBookAPI.Models.ViewModels;
 
 namespace FaceBookAPI.Controllers
 {
@@ -24,10 +25,28 @@ namespace FaceBookAPI.Controllers
             return db.Users.Where(user => user.deleted == false && user.user_type == "user");
         }
 
+        //Login 
+        //Post: api/Users
+        [HttpPost]
+        [Route("api/users/login")]
+        [ResponseType(typeof(User))]
+        public IHttpActionResult LoginUser(LoginViewModel login)
+        {
+            
+            User user = db.Users.FirstOrDefault(user_ => user_.user_email == login.user_email&&user_.user_password == login.user_password && user_.deleted == false && user_.user_type == "user");
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(user);
+        }
+
         // GET: api/Users/5
         // GET: api/Users/5 and deleted =false
         [ResponseType(typeof(User))]
-        public IHttpActionResult GetUser(int id)
+      //  [Route("api/users/getuser")]
+        public IHttpActionResult GetUser([FromUri]int id)
         {
             User user = db.Users.FirstOrDefault(user_ => user_.user_id == id && user_.deleted == false && user_.user_type == "user");
             if (user == null)
@@ -38,9 +57,26 @@ namespace FaceBookAPI.Controllers
             return Ok(user);
         }
 
+
+        //GET:User By Name For Search
+        [Route("api/users/{id:int}/{name:alpha}")]
+        [ResponseType(typeof(User))]
+        [HttpGet]
+        public IHttpActionResult GetUserByName(int id, string name)
+        {   
+            List<User> users = db.Users.Where(u => u.user_name.ToLower().Contains(name.ToLower())||u.user_email.ToLower()==name.ToLower() && u.deleted==false && u.user_id!=id).ToList<User>();
+            if (users == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(users);
+
+        }
+
         // PUT: api/Users/5
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutUser(int id, User user)
+        public IHttpActionResult PutUser([FromUri]int id, User user)
         {
             if (!ModelState.IsValid)
             {
@@ -118,6 +154,8 @@ namespace FaceBookAPI.Controllers
                 return BadRequest(ModelState);
             }
 
+            user.user_type = "user";
+            user.deleted = false;
             db.Users.Add(user);
             db.SaveChanges();
 

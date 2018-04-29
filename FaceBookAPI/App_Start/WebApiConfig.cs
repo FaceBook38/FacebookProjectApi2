@@ -14,9 +14,14 @@ namespace FaceBookAPI
             config.Formatters.JsonFormatter.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
             config.Formatters.JsonFormatter.SerializerSettings.MaxDepth = 2;
             // Web API configuration and services
+            config.Formatters.Remove(config.Formatters.XmlFormatter);
 
+            config.Formatters.JsonFormatter.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+           config.Formatters.JsonFormatter.MaxDepth = 2;
+            config.Formatters.JsonFormatter.SupportedMediaTypes.Add(new System.Net.Http.Headers.MediaTypeHeaderValue("application/json"));
             // Web API routes
             config.MapHttpAttributeRoutes();
+
 
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",

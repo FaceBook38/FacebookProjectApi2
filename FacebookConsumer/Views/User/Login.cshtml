@@ -1,0 +1,38 @@
+﻿@model FacebookConsumer.Models.ViewModels.LoginViewModel
+@using (Html.BeginForm("Login", "User", FormMethod.Post))
+{
+    <div style="text-align: center">
+        <table class="table">
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.user_email, htmlAttributes: new {@class = "control-label col-md-2"})
+                </td>
+                <td>
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.user_email, new {htmlAttributes = new {@class = "form-control"}})
+                        @Html.ValidationMessageFor(model => model.user_email, "", new {@class = "text-danger"})
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.user_password, htmlAttributes: new {@class = "control-label col-md-2"})
+                </td>
+                <td>
+                    <div class="col-md-10">
+                        @Html.PasswordFor(model => model.user_password, new {@class = "form-control"})
+                        @Html.ValidationMessageFor(model => model.user_password, "", new {@class = "text-danger"})
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <input type="submit" value="Login" class="btn btn-primary" style="background-color: #4d636f"/>
+                </td>
+            </tr>
+        </table>
+    </div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+}

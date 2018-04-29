@@ -25,7 +25,7 @@ namespace FacebookConsumer.Models.FaceBook
         public string group_name { get; set; }
 
         [Column(TypeName = "image")]
-        public byte[] group_image { get; set; }
+        public  byte[] group_image { get; set; }
 
         public bool? deleted { get; set; }
 
