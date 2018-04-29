@@ -1,0 +1,49 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<!-- Middle Column -->
+<div class="w3-col m7">
+
+    <div class="w3-row-padding">
+        <div class="w3-col m12">
+            <div class="w3-card w3-round w3-white">
+                <div class="w3-container w3-padding">
+                    <h6 class="w3-opacity">Write a post...</h6>
+                    <input type="text" placeholder="What's on your mind..." class="w3-border w3-padding" data-toggle="modal" data-target="#createmodal">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="posts">
+        @Html.Action("GetPosts", "Profile")
+    </div>
+
+
+    <!-- Modal -->
+    <div id="createmodal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    @Html.Partial("CreatePost")
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="w3-button w3-theme" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+<script>
+        function myfun() {
+            $("#createmodal").modal("toggle");
+    }
+    </script>

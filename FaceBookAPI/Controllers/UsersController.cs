@@ -70,7 +70,7 @@ namespace FaceBookAPI.Controllers
                 }
             }
 
-            return StatusCode(HttpStatusCode.NoContent);
+            return Ok(user);
         }
         // GET: api/Users/Posts/5
         //edit get all posts that deleted = false  and it's id ==5
@@ -81,14 +81,32 @@ namespace FaceBookAPI.Controllers
            List<UserPost> posts = (from p in db.Posts
                                 from u in db.Users
                                 where p.user_id == id && p.deleted == false && p.user_id==u.user_id
-                                select new UserPost() {user=u, post=p}).ToList();
-            List < Post > post = db.Posts.Where(p => p.user_id == id && p.deleted == false).ToList();
+                                select new UserPost() {user=u, post=p}).OrderByDescending(p=>p.post.post_id).ToList();
+            //List < Post > post = db.Posts.Where(p => p.user_id == id && p.deleted == false).ToList();
             if (posts.Count==0)
             {
                 return NotFound();
             }
 
             return Ok(posts);
+        }
+
+        // GET: api/Users/Friends/5
+        //edit get all Friends that Request = false  and it's id ==5
+        [ResponseType(typeof(Post))]
+        [Route("api/Users/Friends/{id:int}")]
+        public IHttpActionResult GetFriends(int id)
+        {
+            List<User> users = (from u in db.Users
+                               from fu in db.User_Friends
+                               where u.user_id == fu.user_friend_id && fu.user_id == id
+                               select u).OrderBy(u=>u.user_name).ToList();
+            if (users.Count == 0)
+            {
+                return NotFound();
+            }
+
+            return Ok(users);
         }
 
         // POST: api/Users

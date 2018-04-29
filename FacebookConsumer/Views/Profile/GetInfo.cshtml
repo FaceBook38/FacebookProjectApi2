@@ -1,0 +1,14 @@
+﻿@model FacebookConsumer.Models.FaceBook.User
+@{
+    Layout = null;
+}
+
+     <div>
+        <br />
+         <h4 class="w3-center">@Html.DisplayFor(u => u.user_name)</h4>
+         <p class="w3-center"><img src="@(string.Format("data:image/jpeg;base64,{0}",Convert.ToBase64String(Model.profile_image)))" class="w3-circle" style="height:106px;width:106px" alt="Avatar"></p>
+         <hr>
+         <p><i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i><b>Bio:</b> @Html.DisplayFor(u=>u.bio)</p>
+         <p><i class="fa fa-birthday-cake fa-fw w3-margin-right w3-text-theme"></i> <b>Age:</b> @Html.DisplayFor(u=>u.age)</p>
+     </div>
+

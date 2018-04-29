@@ -1,0 +1,12 @@
+﻿@model IEnumerable<FacebookConsumer.Models.FaceBook.User>
+@{ 
+    Layout = null;
+}
+@foreach(var item in Model)
+{
+    <div style="height:150px">
+        <img class="w3-left w3-circle w3-margin-right" style="width:100px; height:120px"  src="@(string.Format("data:image/jpeg;base64,{0}",Convert.ToBase64String(item.profile_image)))"/>
+        <h3>@Html.DisplayFor(u=>item.user_name)</h3>
+        <br />
+    </div>
+}
