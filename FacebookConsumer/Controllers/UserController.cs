@@ -48,7 +48,7 @@ namespace FacebookConsumer.Controllers
                         Session["user_type"] = userLogged.user_type;
                         if (userLogged.user_type == "user")
                         {
-                            return RedirectToAction("Profile");
+                            return RedirectToAction("Index", "Profile", new { });
                         }
                         else //if the user is admin 
                         {

@@ -1,5 +1,7 @@
 ﻿@model FacebookConsumer.Models.FaceBook.User
-
+@{ 
+    Layout = "~/Views/Shared/_AnonymousLayout.cshtml";
+}
 
 @using (Html.BeginForm("create","User",FormMethod.Post))
 {

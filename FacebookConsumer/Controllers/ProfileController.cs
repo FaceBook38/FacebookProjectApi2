@@ -31,7 +31,7 @@ namespace FacebookConsumer.Controllers
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
                 //Sending request to find web api REST service resource GetAllPostloyees using HttpClient  
-                HttpResponseMessage Res = client.GetAsync("api/Users/Posts/" + 1).Result;
+                HttpResponseMessage Res = client.GetAsync("api/Users/Posts/" + int.Parse(Session["user_id"].ToString())).Result;
 
                 //Checking the response is successful or not which is sent using HttpClient  
                 if (Res.IsSuccessStatusCode)
@@ -60,7 +60,7 @@ namespace FacebookConsumer.Controllers
         public async Task<ActionResult> CreatePost(Post post)
         {
             post.deleted = false;
-            post.user_id = 1;
+            post.user_id = int.Parse(Session["user_id"].ToString());
             using (var client = new HttpClient())
             {
                 var myContent = JsonConvert.SerializeObject(post);
@@ -92,8 +92,8 @@ namespace FacebookConsumer.Controllers
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
                 //Sending request to find web api REST service resource GetAllPostloyees using HttpClient  
-                HttpResponseMessage Res = client.GetAsync("api/Users/" + 1).Result;
-
+                HttpResponseMessage Res = client.GetAsync("api/Users/" + int.Parse(Session["user_id"].ToString())).Result;
+                int x = int.Parse(Session["user_id"].ToString());
                 //Checking the response is successful or not which is sent using HttpClient  
                 if (Res.IsSuccessStatusCode)
                 {
@@ -120,7 +120,7 @@ namespace FacebookConsumer.Controllers
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
                 //Sending request to find web api REST service resource GetAllPostloyees using HttpClient  
-                HttpResponseMessage Res = client.GetAsync("api/Users/Friends/" + 1).Result;
+                HttpResponseMessage Res = client.GetAsync("api/Users/Friends/" + int.Parse(Session["user_id"].ToString())).Result;
 
                 //Checking the response is successful or not which is sent using HttpClient  
                 if (Res.IsSuccessStatusCode)

@@ -15,7 +15,6 @@ namespace FacebookConsumer.Models.FaceBook
 
         public virtual DbSet<Blocked_Users> Blocked_Users { get; set; }
         public virtual DbSet<Comment> Comments { get; set; }
-        public virtual DbSet<Like> Likes { get; set; }
         public virtual DbSet<Group_Members> Group_Members { get; set; }
         public virtual DbSet<Group_Posts> Group_Posts { get; set; }
         public virtual DbSet<Group> Groups { get; set; }
@@ -63,10 +62,6 @@ namespace FacebookConsumer.Models.FaceBook
 
             modelBuilder.Entity<User>()
                 .HasMany(e => e.Comments)
-                .WithRequired(e => e.User)
-                .WillCascadeOnDelete(false);
-            modelBuilder.Entity<User>()
-                .HasMany(e => e.Likes)
                 .WithRequired(e => e.User)
                 .WillCascadeOnDelete(false);
 
