@@ -4,6 +4,7 @@ namespace FacebookConsumer.Models.FaceBook
     using System.Data.Entity;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Linq;
+    using FaceBookAPI.Models.FaceBook;
 
     public partial class FacebookContext : DbContext
     {
@@ -14,6 +15,7 @@ namespace FacebookConsumer.Models.FaceBook
 
         public virtual DbSet<Blocked_Users> Blocked_Users { get; set; }
         public virtual DbSet<Comment> Comments { get; set; }
+        public virtual DbSet<Like> Likes { get; set; }
         public virtual DbSet<Group_Members> Group_Members { get; set; }
         public virtual DbSet<Group_Posts> Group_Posts { get; set; }
         public virtual DbSet<GroupMessage> GroupMessages { get; set; }
@@ -61,12 +63,20 @@ namespace FacebookConsumer.Models.FaceBook
                 .IsFixedLength();
 
             modelBuilder.Entity<User>()
+                .Property(e => e.bio)
+                .IsFixedLength();
+
+            modelBuilder.Entity<User>()
                 .HasMany(e => e.Blocked_Users)
                 .WithRequired(e => e.User)
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<User>()
                 .HasMany(e => e.Comments)
+                .WithRequired(e => e.User)
+                .WillCascadeOnDelete(false);
+            modelBuilder.Entity<User>()
+                .HasMany(e => e.Likes)
                 .WithRequired(e => e.User)
                 .WillCascadeOnDelete(false);
 

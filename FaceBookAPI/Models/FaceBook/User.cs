@@ -1,5 +1,6 @@
-namespace FaceBookAPI.Models.FaceBook
+namespace FacebookConsumer.Models.FaceBook
 {
+    using FaceBookAPI.Models.FaceBook;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
@@ -13,6 +14,7 @@ namespace FaceBookAPI.Models.FaceBook
         {
             Blocked_Users = new HashSet<Blocked_Users>();
             Comments = new HashSet<Comment>();
+            Likes = new HashSet<Like>();
             Group_Members = new HashSet<Group_Members>();
             Groups = new HashSet<Group>();
             Posts = new HashSet<Post>();
@@ -60,6 +62,7 @@ namespace FaceBookAPI.Models.FaceBook
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Comment> Comments { get; set; }
+        public virtual ICollection<Like> Likes { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Group_Members> Group_Members { get; set; }
