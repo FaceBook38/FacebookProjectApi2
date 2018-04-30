@@ -174,15 +174,19 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\FaceBook\Blocked_Users.cs" />
-    <Compile Include="Models\FaceBook\Comment.cs" />
-    <Compile Include="Models\FaceBook\FacebookContext.cs" />
-    <Compile Include="Models\FaceBook\Group.cs" />
-    <Compile Include="Models\FaceBook\Group_Members.cs" />
-    <Compile Include="Models\FaceBook\Group_Posts.cs" />
-    <Compile Include="Models\FaceBook\Post.cs" />
-    <Compile Include="Models\FaceBook\User.cs" />
-    <Compile Include="Models\FaceBook\User_Friends.cs" />
+    <Compile Include="Models\Facebook\Blocked_Users.cs" />
+    <Compile Include="Models\Facebook\Comment.cs" />
+    <Compile Include="Models\Facebook\FacebookContext.cs" />
+    <Compile Include="Models\Facebook\Group.cs" />
+    <Compile Include="Models\Facebook\GroupMessage.cs" />
+    <Compile Include="Models\Facebook\Group_Members.cs" />
+    <Compile Include="Models\Facebook\Group_Posts.cs" />
+    <Compile Include="Models\Facebook\Post.cs" />
+    <Compile Include="Models\Facebook\sysdiagram.cs" />
+    <Compile Include="Models\Facebook\User.cs" />
+    <Compile Include="Models\Facebook\UsersMessage.cs" />
+    <Compile Include="Models\Facebook\User_Friends.cs" />
+    <Compile Include="Models\Facebook\User_likes.cs" />
     <Compile Include="Models\ViewModels\LoginViewModel.cs" />
     <Compile Include="Models\FaceBook\UserPost.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -194,6 +198,8 @@
     <Content Include="Content\bootstrap-reboot.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\connect.png" />
+    <Content Include="Content\connecting.png" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -250,6 +256,9 @@
     <Content Include="Scripts\umd\popper-utils.min.js" />
     <Content Include="Scripts\umd\popper.js" />
     <Content Include="Scripts\umd\popper.min.js" />
+    <None Include="Scripts\jquery-1.6.4-vsdoc.js" />
+    <Content Include="Scripts\jquery-1.6.4.js" />
+    <Content Include="Scripts\jquery-1.6.4.min.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

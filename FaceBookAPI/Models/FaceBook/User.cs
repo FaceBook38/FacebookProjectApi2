@@ -19,6 +19,7 @@ namespace FacebookConsumer.Models.FaceBook
             Groups = new HashSet<Group>();
             Posts = new HashSet<Post>();
             User_Friends = new HashSet<User_Friends>();
+            User_likes = new HashSet<User_likes>();
         }
 
         [Required]
@@ -74,5 +75,13 @@ namespace FacebookConsumer.Models.FaceBook
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<User_Friends> User_Friends { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<User_likes> User_likes { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<UsersMessage> UsersMessagesSender { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<UsersMessage> UsersMessagesRecevier { get; set; }
     }
 }
