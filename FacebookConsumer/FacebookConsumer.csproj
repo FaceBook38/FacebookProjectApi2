@@ -178,6 +178,8 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\connect.png" />
+    <Content Include="Content\connecting.png" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -239,6 +241,7 @@
     <Content Include="Views\User\SearchResult.cshtml" />
     <Content Include="Views\User\FriendProfile.cshtml" />
     <Content Include="Views\User\ChatView.cshtml" />
+    <Content Include="Views\Shared\_LayoutHome.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

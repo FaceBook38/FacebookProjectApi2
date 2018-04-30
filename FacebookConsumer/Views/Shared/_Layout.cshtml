@@ -7,10 +7,7 @@
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-    @*@Scripts.Render("~/Scripts/jquery-1.10.2.min.js")
-        @Scripts.Render("~/Scripts/jquery.signalR-2.2.3.min.js")
-        @Scripts.Render("~/Signalr/hubs")*@
-
+    
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top" style="background-color: #4d636f">
@@ -25,8 +22,8 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Login", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
+                    <li style="color:white">@Html.ActionLink("Login", "login", "User")</li>
+                    <li>@Html.ActionLink("Register", "create", "User")</li>
                     
                 </ul>
             </div>

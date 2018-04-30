@@ -29,13 +29,15 @@ namespace FacebookConsumer.Models.FaceBook
         public int user_id { get; set; }
 
         [Required]
+        [DataType(DataType.EmailAddress,ErrorMessage ="must match E-mail format (example@example.com)")]
         [StringLength(50)]
         [Display(Name = "Email")]
         public string user_email { get; set; }
-
-        [Required]
         [StringLength(50)]
-
+        [Required]
+        [DataType(DataType.Password, ErrorMessage = "password must contain characters and numbers")]
+        [MinLength(8, ErrorMessage = "requires valid length 8 -- 12")]
+        [MaxLength(12, ErrorMessage = "requires valid length 8 -- 12")]
         [Display(Name = "Password")]
         public string user_password { get; set; }
         [Display(Name = "Confirm Password")]
@@ -46,11 +48,12 @@ namespace FacebookConsumer.Models.FaceBook
 
         [StringLength(10)]
         public string user_type { get; set; }
-
+        [DataType(DataType.Text ,ErrorMessage ="charactars only")]
         [Required]
         [StringLength(50)]
         [Display(Name = "First name")]
         public string fname { get; set; }
+        [DataType(DataType.Text, ErrorMessage = "charactars only")]
         [Display(Name = "Last name")]
         [StringLength(50)]
         public string lname { get; set; }

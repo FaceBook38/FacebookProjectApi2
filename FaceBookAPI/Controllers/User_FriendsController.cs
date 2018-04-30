@@ -32,7 +32,7 @@ namespace FaceBookAPI.Controllers
                 return NotFound();
             }
 
-            return Ok(user_Friend);
+            return Ok(user_Friends);
         }
 
         // PUT: api/User_Friends/5
