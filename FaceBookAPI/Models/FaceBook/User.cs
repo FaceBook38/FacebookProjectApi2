@@ -1,4 +1,4 @@
-namespace FacebookConsumer.Models.FaceBook
+namespace FaceBookAPI.Models.FaceBook
 {
     using FaceBookAPI.Models.FaceBook;
     using System;
@@ -14,12 +14,11 @@ namespace FacebookConsumer.Models.FaceBook
         {
             Blocked_Users = new HashSet<Blocked_Users>();
             Comments = new HashSet<Comment>();
-            Likes = new HashSet<Like>();
             Group_Members = new HashSet<Group_Members>();
             Groups = new HashSet<Group>();
             Posts = new HashSet<Post>();
             User_Friends = new HashSet<User_Friends>();
-            User_likes = new HashSet<User_likes>();
+            //User_likes = new HashSet<User_likes>();
         }
 
         [Required]
@@ -62,7 +61,6 @@ namespace FacebookConsumer.Models.FaceBook
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Comment> Comments { get; set; }
-        public virtual ICollection<Like> Likes { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Group_Members> Group_Members { get; set; }
@@ -76,12 +74,12 @@ namespace FacebookConsumer.Models.FaceBook
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<User_Friends> User_Friends { get; set; }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<User_likes> User_likes { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<UsersMessage> UsersMessagesSender { get; set; }
+        //[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        //public virtual ICollection<User_likes> User_likes { get; set; }
+        //[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        //public virtual ICollection<UsersMessage> UsersMessagesSender { get; set; }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<UsersMessage> UsersMessagesRecevier { get; set; }
+        //[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        //public virtual ICollection<UsersMessage> UsersMessagesRecevier { get; set; }
     }
 }

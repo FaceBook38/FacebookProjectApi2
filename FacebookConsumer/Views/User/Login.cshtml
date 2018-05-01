@@ -1,35 +1,46 @@
 ﻿@model FacebookConsumer.Models.ViewModels.LoginViewModel
 @{
-    Layout = "~/Views/Shared/_AnonymousLayout.cshtml";
+                /**/
+
+                Layout = "~/Views/Shared/_AnonymousLayout.cshtml";
 }
 @using (Html.BeginForm("Login", "User", FormMethod.Post))
-{
-    <div style="text-align: center">
+{<div class="col-md-12" style="margin:auto">
+    <div class="form-horizontal col-md-5" style="margin-top:20px; display:inline-block">
         <table class="table" style="border:none">
             <tr>
                 <td>
                     <div class="col-md-10">
-                        @Html.EditorFor(model => model.user_email, new {htmlAttributes = new {@class = "form-control",PlaceHolder="E-mail"}})
-                        @Html.ValidationMessageFor(model => model.user_email, "", new {@class = "text-danger"})
+                        @Html.EditorFor(model => model.user_email, new { htmlAttributes = new { @class = "form-control", PlaceHolder = "E-mail" } })
+                        @Html.ValidationMessageFor(model => model.user_email, "", new { @class = "text-danger" })
                     </div>
                 </td>
             </tr>
             <tr>
                 <td>
                     <div class="col-md-10">
-                        @Html.PasswordFor(model => model.user_password, new {@class = "form-control", PlaceHolder = "Password" })
-                        @Html.ValidationMessageFor(model => model.user_password, "", new {@class = "text-danger"})
+                        @Html.PasswordFor(model => model.user_password, new { @class = "form-control", PlaceHolder = "Password" })
+                        @Html.ValidationMessageFor(model => model.user_password, "", new { @class = "text-danger" })
                     </div>
                 </td>
             </tr>
             <tr>
-                <td >
-                    <input type="submit" value="Login" class="btn btn-primary" style="background-color: #4d636f"/>
+                <td>
+                    <input type="submit" value="Login" class="btn btn-primary" style="background-color: #4d636f" />
                 </td>
             </tr>
         </table>
     </div>
-    @section Scripts {
-        @Scripts.Render("~/bundles/jqueryval")
-    }
-}
+    <div class="col-md-5 " style="display:inline-block">
+
+        <img src="~/Content/connecting.png" />
+    </div>
+</div>
+    <br />
+    <br />
+    <br />
+    <br />
+        @section Scripts {
+            @Scripts.Render("~/bundles/jqueryval")
+        }
+        }

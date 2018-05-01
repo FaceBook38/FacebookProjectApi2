@@ -1,4 +1,4 @@
-namespace FacebookConsumer.Models.FaceBook
+namespace FaceBookAPI.Models.FaceBook
 {
     using System;
     using System.Collections.Generic;

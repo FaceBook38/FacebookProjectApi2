@@ -200,6 +200,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\connect.png" />
     <Content Include="Content\connecting.png" />
+    <Content Include="DefaultPic\user-profile.jpg" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -309,6 +310,8 @@
     <Content Include="Views\Profile\GetInfo.cshtml" />
     <Content Include="Views\Profile\GetFriends.cshtml" />
     <Content Include="Views\Shared\_AnonymousLayout.cshtml" />
+    <Content Include="Views\Profile\UpdatePic.cshtml" />
+    <Content Include="Views\Profile\UpdateInfo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -215,9 +215,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201804261058186_Final.cs" />
-    <Compile Include="Migrations\201804261058186_Final.Designer.cs">
-      <DependentUpon>201804261058186_Final.cs</DependentUpon>
+    <Compile Include="Migrations\201804300931327_final1.cs" />
+    <Compile Include="Migrations\201804300931327_final1.Designer.cs">
+      <DependentUpon>201804300931327_final1.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Facebook\Blocked_Users.cs" />
@@ -230,6 +230,7 @@
     <Compile Include="Models\Facebook\Post.cs" />
     <Compile Include="Models\Facebook\sysdiagram.cs" />
     <Compile Include="Models\Facebook\User.cs" />
+    <Compile Include="Models\Facebook\UserPost.cs" />
     <Compile Include="Models\Facebook\UsersMessage.cs" />
     <Compile Include="Models\Facebook\User_Friends.cs" />
     <Compile Include="Models\Facebook\User_likes.cs" />
@@ -325,8 +326,8 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201804261058186_Final.resx">
-      <DependentUpon>201804261058186_Final.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201804300931327_final1.resx">
+      <DependentUpon>201804300931327_final1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

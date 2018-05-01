@@ -9,7 +9,7 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 using FaceBookAPI.Models.FaceBook;
-using FacebookConsumer.Models.FaceBook;
+//using FacebookConsumer.Models.FaceBook;
 using FaceBookAPI.Models.ViewModels;
 
 namespace FaceBookAPI.Controllers
@@ -109,6 +109,8 @@ namespace FaceBookAPI.Controllers
 
             return Ok(user);
         }
+
+       
         // GET: api/Users/Posts/5
         //edit get all posts that deleted = false  and it's id ==5
         [ResponseType(typeof(Post))]

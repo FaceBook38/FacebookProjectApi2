@@ -16,6 +16,10 @@
             <img src="@(string.Format("data:image/jpeg;base64,{0}",Convert.ToBase64String(item.user.profile_image)))" alt="Avatar" class="w3-left w3-circle w3-margin-right" style="width:60px; height:60px">
 
 }
+                @if (item.user.profile_image == null)
+    {
+            <p class="w3-center"><img src="~/DefaultPic/user-profile.jpg" class="w3-circle" style="height:106px;width:106px" alt="Avatar"></p>
+}
             @*<span class="w3-right w3-opacity">1 min</span>*@
                 <h4>@Html.DisplayFor(ww => item.user.user_name)</h4><br>
                 <hr class="w3-clear">

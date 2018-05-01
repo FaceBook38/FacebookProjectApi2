@@ -1,4 +1,4 @@
-namespace FacebookConsumer.Models.FaceBook
+namespace FaceBookAPI.Models.FaceBook
 {
     using System;
     using System.Data.Entity;
@@ -15,7 +15,6 @@ namespace FacebookConsumer.Models.FaceBook
 
         public virtual DbSet<Blocked_Users> Blocked_Users { get; set; }
         public virtual DbSet<Comment> Comments { get; set; }
-        public virtual DbSet<Like> Likes { get; set; }
         public virtual DbSet<Group_Members> Group_Members { get; set; }
         public virtual DbSet<Group_Posts> Group_Posts { get; set; }
         public virtual DbSet<GroupMessage> GroupMessages { get; set; }
@@ -23,9 +22,9 @@ namespace FacebookConsumer.Models.FaceBook
         public virtual DbSet<Post> Posts { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<User_Friends> User_Friends { get; set; }
-        public virtual DbSet<User_likes> User_likes { get; set; }
+        //public virtual DbSet<User_likes> User_likes { get; set; }
         public virtual DbSet<User> Users { get; set; }
-        public virtual DbSet<UsersMessage> UsersMessages { get; set; }
+        //public virtual DbSet<UsersMessage> UsersMessages { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -71,10 +70,10 @@ namespace FacebookConsumer.Models.FaceBook
                 .HasMany(e => e.Comments)
                 .WithRequired(e => e.User)
                 .WillCascadeOnDelete(false);
-            modelBuilder.Entity<User>()
-                .HasMany(e => e.Likes)
-                .WithRequired(e => e.User)
-                .WillCascadeOnDelete(false);
+            //modelBuilder.Entity<User>()
+            //    .HasMany(e => e.Likes)
+            //    .WithRequired(e => e.User)
+            //    .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<User>()
                 .HasMany(e => e.Group_Members)
@@ -96,17 +95,17 @@ namespace FacebookConsumer.Models.FaceBook
                 .HasMany(e => e.User_Friends)
                 .WithRequired(e => e.User)
                 .WillCascadeOnDelete(false);
-            modelBuilder.Entity<User>()
-               .HasMany(e => e.UsersMessagesSender)
-               .WithRequired(e => e.Sender)
-               .HasForeignKey(e => e.sender_id)
-               .WillCascadeOnDelete(false);
+            //modelBuilder.Entity<User>()
+            //   .HasMany(e => e.UsersMessagesSender)
+            //   .WithRequired(e => e.Sender)
+            //   .HasForeignKey(e => e.sender_id)
+            //   .WillCascadeOnDelete(false);
 
-            modelBuilder.Entity<User>()
-                .HasMany(e => e.UsersMessagesRecevier)
-                .WithRequired(e => e.Receiver)
-                .HasForeignKey(e => e.reciver_id)
-                .WillCascadeOnDelete(false);
+            //modelBuilder.Entity<User>()
+            //    .HasMany(e => e.UsersMessagesRecevier)
+            //    .WithRequired(e => e.Receiver)
+            //    .HasForeignKey(e => e.reciver_id)
+            //    .WillCascadeOnDelete(false);
         }
     }
 }
