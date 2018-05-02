@@ -1,0 +1,44 @@
+﻿@model FacebookConsumer.Models.FaceBook.Group
+
+<div>
+    <h4>Group</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.User.user_name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.User.user_name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.group_name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.group_name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.group_image)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.group_image)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.deleted)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.deleted)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.group_id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

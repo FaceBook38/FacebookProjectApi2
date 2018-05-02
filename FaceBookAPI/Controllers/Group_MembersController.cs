@@ -24,16 +24,21 @@ namespace FaceBookAPI.Controllers
 
         // GET: api/Group_Members/5
         [ResponseType(typeof(Group_Members))]
-        public IHttpActionResult GetGroup_Members(int id)
+        public List<User> GetGroup_Members(int id)
         {
-            Group_Members group_Members = db.Group_Members.Find(id);
-            if (group_Members == null)
+            var users =
+                 from User in db.Users
+                 join Group_Members in db.Group_Members on User.user_id equals Group_Members.user_id
+                 where Group_Members.group_id == id
+                 select User;
+            if (users == null)
             {
-                return NotFound();
+                return new List<User>();
             }
 
-            return Ok(group_Members);
+            return users.ToList<User>();
         }
+    
 
         // PUT: api/Group_Members/5
         [ResponseType(typeof(void))]
@@ -78,7 +83,14 @@ namespace FaceBookAPI.Controllers
             {
                 return BadRequest(ModelState);
             }
-
+            List<Group_Members> members = db.Group_Members.Where(m=>m.group_id==group_Members.group_id).ToList<Group_Members>();
+            int flag = 0;
+            foreach (var item in members)
+            {
+                if (item.user_id == group_Members.user_id)
+                    flag = 1;
+            }
+            if(flag==0)
             db.Group_Members.Add(group_Members);
 
             try

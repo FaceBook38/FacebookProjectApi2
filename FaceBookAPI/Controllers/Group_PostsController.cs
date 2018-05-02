@@ -26,7 +26,7 @@ namespace FaceBookAPI.Controllers
         [ResponseType(typeof(Group_Posts))]
         public IHttpActionResult GetGroup_Posts(int id)
         {
-            Group_Posts group_Posts = db.Group_Posts.Find(id);
+           List<Group_Posts> group_Posts = db.Group_Posts.Where(g=>g.group_id==id).OrderByDescending(p => p.post_id).ToList<Group_Posts>();
             if (group_Posts == null)
             {
                 return NotFound();
@@ -80,10 +80,11 @@ namespace FaceBookAPI.Controllers
             }
 
             db.Group_Posts.Add(group_Posts);
-
+            List<Group_Posts> posts = new List<Group_Posts>();
             try
             {
                 db.SaveChanges();
+                posts = db.Group_Posts.Where(p => p.group_id == group_Posts.group_id).ToList();
             }
             catch (DbUpdateException)
             {
@@ -96,8 +97,8 @@ namespace FaceBookAPI.Controllers
                     throw;
                 }
             }
-
-            return CreatedAtRoute("DefaultApi", new { id = group_Posts.post_id }, group_Posts);
+            return Ok(posts);
+            //return CreatedAtRoute("DefaultApi", new { id = group_Posts.post_id }, group_Posts);
         }
 
         // DELETE: api/Group_Posts/5

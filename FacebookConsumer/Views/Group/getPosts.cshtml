@@ -1,0 +1,39 @@
+﻿@model IEnumerable<FacebookConsumer.Models.FaceBook.Group_Posts>
+@{ 
+    Layout = null;
+}
+<div>
+    
+    @foreach (var item in Model)
+    {
+    <div class="w3-container w3-card w3-white w3-round w3-margin">
+        <br>
+        @if (item.User.profile_image == null)
+    {
+        <img src="~/images/user.png" class="w3-left w3-circle w3-margin-right" style="width:60px; height:60px">
+
+}
+else
+{
+    <img src="@(string.Format("data:image/jpeg;base64,{0}", Convert.ToBase64String(item.User.profile_image)))" alt="Avatar" class="w3-left w3-circle w3-margin-right" style="width:60px; height:60px">
+}
+
+        <h4>@Html.DisplayFor(ww => item.User.user_name)</h4><br>
+        <hr class="w3-clear">
+
+        &nbsp; &nbsp; &nbsp; &nbsp;
+
+        <p>@Html.DisplayFor(ww => item.content)</p>
+        <div class="w3-row-padding" style="margin:0 -16px">
+
+        </div>
+        <br />
+        <button type="button" class="w3-button w3-theme-d1 w3-margin-bottom"><i class="fa fa-thumbs-up"></i>  Like</button>
+        <button type="button" class="w3-button w3-theme-d2 w3-margin-bottom"><i class="fa fa-comment"></i>  Comment</button>
+    </div>
+
+           
+            }
+
+        </div>
+         

@@ -55,6 +55,21 @@ namespace FaceBookAPI.Controllers
 
             return Ok(user);
         }
+        [ResponseType(typeof(Post))]
+        [Route("api/Users/Friends/{id:int}")]
+        public IHttpActionResult GetFriends(int id)
+        {
+            List<User> users = (from u in db.Users
+                                from fu in db.User_Friends
+                                where u.user_id == fu.user_friend_id && fu.user_id == id
+                                select u).OrderBy(u => u.user_name).ToList();
+            if (users.Count == 0)
+            {
+                return NotFound();
+            }
+
+            return Ok(users);
+        }
 
 
         //GET:User By Name For Search

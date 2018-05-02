@@ -22,17 +22,30 @@ namespace FaceBookAPI.Controllers
             return db.User_Friends.Where(u=>u.request==true);
         }
 
+        //// GET: api/User_Friends/5
+        //[ResponseType(typeof(User_Friends))]
+        //public IHttpActionResult GetUser_Friends(int id)//id => id friend elly 3oza agebo
+        //{
+        //    List<User> user_Friends = db.User_Friends.Where(u => u.user_id == id && u.request==true).Select(user=>user.User).ToList<User>();
+        //    if (user_Friends == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    return Ok(user_Friends);
+        //}
         // GET: api/User_Friends/5
         [ResponseType(typeof(User_Friends))]
         public IHttpActionResult GetUser_Friends(int id)//id => id friend elly 3oza agebo
         {
-            List<User_Friends> user_Friends = db.User_Friends.Where(u => u.user_id == id && u.request==true).ToList<User_Friends>();
+            List<User_Friends> user_Friends = db.User_Friends.Where(u => u.user_id == id && u.request == true).ToList();
             if (user_Friends == null)
             {
                 return NotFound();
             }
 
             return Ok(user_Friends);
+
         }
 
         // PUT: api/User_Friends/5

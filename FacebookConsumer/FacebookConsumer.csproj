@@ -199,6 +199,8 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="images\group.png" />
+    <Content Include="images\user.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
@@ -252,6 +254,14 @@
     <Content Include="Views\User\Block.cshtml" />
     <Content Include="Views\User\SearchResult.cshtml" />
     <Content Include="Views\User\FriendProfile.cshtml" />
+    <Content Include="Views\Group\DisplayMyGroupAsync.cshtml" />
+    <Content Include="Views\Group\GroupHomeAsync.cshtml" />
+    <Content Include="Views\GroupHome\Home.cshtml" />
+    <Content Include="Views\Shared\Profile.cshtml" />
+    <Content Include="Views\Group\GroupMembers.cshtml" />
+    <Content Include="Views\Group\GetMyFriends.cshtml" />
+    <Content Include="Views\Group\createPost.cshtml" />
+    <Content Include="Views\Group\getPosts.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
