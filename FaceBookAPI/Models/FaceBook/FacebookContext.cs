@@ -4,6 +4,7 @@ namespace FaceBookAPI.Models.FaceBook
     using System.Data.Entity;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Linq;
+    using FaceBookAPI.Models.FaceBook;
 
     public partial class FacebookContext : DbContext
     {
@@ -16,13 +17,23 @@ namespace FaceBookAPI.Models.FaceBook
         public virtual DbSet<Comment> Comments { get; set; }
         public virtual DbSet<Group_Members> Group_Members { get; set; }
         public virtual DbSet<Group_Posts> Group_Posts { get; set; }
+        public virtual DbSet<GroupMessage> GroupMessages { get; set; }
         public virtual DbSet<Group> Groups { get; set; }
         public virtual DbSet<Post> Posts { get; set; }
+        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<User_Friends> User_Friends { get; set; }
+        //public virtual DbSet<User_likes> User_likes { get; set; }
         public virtual DbSet<User> Users { get; set; }
+        //public virtual DbSet<UsersMessage> UsersMessages { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Group_Members>()
+                .HasMany(e => e.GroupMessages)
+                .WithRequired(e => e.Group_Members)
+                .HasForeignKey(e => new { e.group_id, e.user_id })
+                .WillCascadeOnDelete(false);
+
             modelBuilder.Entity<Group>()
                 .Property(e => e.group_name)
                 .IsUnicode(false);
@@ -51,10 +62,6 @@ namespace FaceBookAPI.Models.FaceBook
                 .IsFixedLength();
 
             modelBuilder.Entity<User>()
-                .Property(e => e.bio)
-                .IsFixedLength();
-
-            modelBuilder.Entity<User>()
                 .HasMany(e => e.Blocked_Users)
                 .WithRequired(e => e.User)
                 .WillCascadeOnDelete(false);
@@ -63,6 +70,10 @@ namespace FaceBookAPI.Models.FaceBook
                 .HasMany(e => e.Comments)
                 .WithRequired(e => e.User)
                 .WillCascadeOnDelete(false);
+            //modelBuilder.Entity<User>()
+            //    .HasMany(e => e.Likes)
+            //    .WithRequired(e => e.User)
+            //    .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<User>()
                 .HasMany(e => e.Group_Members)
@@ -84,6 +95,17 @@ namespace FaceBookAPI.Models.FaceBook
                 .HasMany(e => e.User_Friends)
                 .WithRequired(e => e.User)
                 .WillCascadeOnDelete(false);
+            //modelBuilder.Entity<User>()
+            //   .HasMany(e => e.UsersMessagesSender)
+            //   .WithRequired(e => e.Sender)
+            //   .HasForeignKey(e => e.sender_id)
+            //   .WillCascadeOnDelete(false);
+
+            //modelBuilder.Entity<User>()
+            //    .HasMany(e => e.UsersMessagesRecevier)
+            //    .WithRequired(e => e.Receiver)
+            //    .HasForeignKey(e => e.reciver_id)
+            //    .WillCascadeOnDelete(false);
         }
     }
 }

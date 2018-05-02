@@ -1,0 +1,26 @@
+﻿@model FacebookConsumer.Models.FaceBook.User
+@{
+    Layout = null;
+}
+@if (Model != null)
+{
+<div id="Info">
+    <br />
+    <h4 class="w3-center">@Html.DisplayFor(u => u.user_name)</h4>
+    <a data-toggle="modal" data-target="#UpdatePic" title="Edit Photo"><i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i></a>
+    @if (Model.profile_image != null)
+    {
+        <p class="w3-center"><img src="@(string.Format("data:image/jpeg;base64,{0}",Convert.ToBase64String(Model.profile_image)))" class="w3-circle" style="height:106px;width:106px" alt="Avatar"></p>
+    }
+    @if (Model.profile_image == null)
+    {
+        <p class="w3-center"><img src="~/DefaultPic/user-profile.jpg" class="w3-circle" style="height:106px;width:106px" alt="Avatar"></p>
+    }
+    <hr>
+
+    <button class="w3-button w3-block w3-theme-l1 w3-left-align" data-toggle="modal" data-target="#UpdateInfo" title="Edit Info"><i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i>Edit Info</button>
+    <p><i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i><b>Bio:</b> @Html.DisplayFor(u => u.bio)</p>
+    <p><i class="fa fa-birthday-cake fa-fw w3-margin-right w3-text-theme"></i> <b>Age:</b> @Html.DisplayFor(u => u.age)</p>
+</div>
+     }
+

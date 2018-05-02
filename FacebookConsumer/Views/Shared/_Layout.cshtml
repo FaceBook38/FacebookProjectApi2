@@ -1,40 +1,213 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title</title>
-    @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
+    <title>Facebook</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-blue-grey.css">
+    <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Open+Sans'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <style>
+        html, body, h1, h2, h3, h4, h5 {
+            font-family: "Open Sans", sans-serif
+        }
+    </style>
 </head>
-<body>
-    <div class="navbar navbar-inverse navbar-fixed-top" style="background-color: #4d636f">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Fack Book", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+<body class="w3-theme-l5">
+
+    <!-- Navbar -->
+    <div class="w3-top">
+        <div class="w3-bar w3-theme-d2 w3-left-align w3-large">
+            <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-theme-d2" href="javascript:void(0);" onclick="openNav()"><i class="fa fa-bars"></i></a>
+            @*<a href="#" class="w3-bar-item w3-button w3-padding-large w3-theme-d4"><i class="fa fa-home w3-margin-right"></i>Logo</a>*@
+            @Html.ActionLink("Home", actionName: "Index", controllerName: "Home", routeValues: new { }, htmlAttributes: new { @class = "w3-bar-item w3-button w3-padding-large w3-theme-d4" })
+            <a href="#" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" title="News"><i class="fa fa-globe"></i></a>
+            <a href="#" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" title="Account Settings"><i class="fa fa-user"></i></a>
+            <a href="#" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" title="Messages"><i class="fa fa-envelope"></i></a>
+            <div class="w3-dropdown-hover w3-hide-small">
+                <button class="w3-button w3-padding-large" title="Notifications"><i class="fa fa-bell"></i><span class="w3-badge w3-right w3-small w3-green">3</span></button>
+                <div class="w3-dropdown-content w3-card-4 w3-bar-block" style="width:300px">
+                    <a href="#" class="w3-bar-item w3-button">One new friend request</a>
+                    <a href="#" class="w3-bar-item w3-button">John Doe posted on your wall</a>
+                    <a href="#" class="w3-bar-item w3-button">Jane likes your post</a>
+                </div>
             </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Login", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    
-                </ul>
-            </div>
+            <a href="#" class="w3-bar-item w3-button w3-hide-small w3-right w3-padding-large w3-hover-white" title="My Account">
+                @Html.ActionLink("Go to Profile", actionName: "Index", controllerName: "Profile", routeValues: new { }, htmlAttributes: new { @class = "w3-bar-item w3-button w3-hide-small w3-right w3-padding-large w3-hover-white" })
+            </a>
         </div>
     </div>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-           
-        </footer>
+
+    <!-- Navbar on small screens -->
+    <div id="navDemo" class="w3-bar-block w3-theme-d2 w3-hide w3-hide-large w3-hide-medium w3-large">
+        <a href="#" class="w3-bar-item w3-button w3-padding-large">Link 1</a>
+        <a href="#" class="w3-bar-item w3-button w3-padding-large">Link 2</a>
+        <a href="#" class="w3-bar-item w3-button w3-padding-large">Link 3</a>
+        <a href="#" class="w3-bar-item w3-button w3-padding-large">My Profile</a>
     </div>
 
+    <!-- Page Container -->
+    <div class="w3-container w3-content" style="max-width:1400px;margin-top:80px">
+
+
+        <!--left-->
+        <div class="w3-row">
+            <!-- Left Column -->
+            <div class="w3-col m3">
+                <!-- Profile -->
+                <div class="w3-card w3-round w3-white">
+                    <div class="w3-container">
+                        @Html.Action("GetInfo", "Profile")
+                    </div>
+                </div>
+                <br>
+
+                <!-- Accordion -->
+                <div class="w3-card w3-round">
+                    <div class="w3-white">
+                        <button class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-circle-o-notch fa-fw w3-margin-right"></i> My Groups</button>
+                        <button class="w3-button w3-block w3-theme-l1 w3-left-align" data-toggle="modal" data-target="#myFriends"><i class="fa fa-users fa-fw w3-margin-right"></i> My Friends</button>
+                        <button onclick="myFunction('Demo3')" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-users fa-fw w3-margin-right"></i> My Photos</button>
+                        <div id="Demo3" class="w3-hide w3-container">
+                            <div class="w3-row-padding">
+                                <br>
+                                <div class="w3-half">
+                                    <img src="/w3images/lights.jpg" style="width:100%" class="w3-margin-bottom">
+                                </div>
+                                <div class="w3-half">
+                                    <img src="/w3images/nature.jpg" style="width:100%" class="w3-margin-bottom">
+                                </div>
+                                <div class="w3-half">
+                                    <img src="/w3images/mountains.jpg" style="width:100%" class="w3-margin-bottom">
+                                </div>
+                                <div class="w3-half">
+                                    <img src="/w3images/forest.jpg" style="width:100%" class="w3-margin-bottom">
+                                </div>
+                                <div class="w3-half">
+                                    <img src="/w3images/nature.jpg" style="width:100%" class="w3-margin-bottom">
+                                </div>
+                                <div class="w3-half">
+                                    <img src="/w3images/fjords.jpg" style="width:100%" class="w3-margin-bottom">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br>
+
+            </div>
+
+
+            <!--middle-->
+            @RenderBody()
+        </div>
+    </div>
+    <br>
+
+    <!-- Footer -->
+    <footer class="w3-container w3-theme-d3 w3-padding-16">
+        <h5>Footer</h5>
+    </footer>
+
+    <footer class="w3-container w3-theme-d5">
+        <p>Powered by <a href="https://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</a></p>
+    </footer>
+
+    <script>
+        // Accordion
+        function myFunction(id) {
+            var x = document.getElementById(id);
+            if (x.className.indexOf("w3-show") == -1) {
+                x.className += " w3-show";
+                x.previousElementSibling.className += " w3-theme-d1";
+            } else {
+                x.className = x.className.replace("w3-show", "");
+                x.previousElementSibling.className =
+                    x.previousElementSibling.className.replace(" w3-theme-d1", "");
+            }
+        }
+
+        // Used to toggle the menu on smaller screens when clicking on the menu button
+        function openNav() {
+            var x = document.getElementById("navDemo");
+            if (x.className.indexOf("w3-show") == -1) {
+                x.className += " w3-show";
+            } else {
+                x.className = x.className.replace(" w3-show", "");
+            }
+        }
+    </script>
+
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <script src="~/Scripts/bootstrap.bundle.min.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    <script>
+        function Close() {
+            $("#UpdateInfo").modal("toggle");
+        }  function Close() {
+            $("#UpdatePic").modal("toggle");
+        }
+    </script>
+    <!-- Modal -->
+    <div id="myFriends" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    @Html.Action("GetFriends", "Profile")
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="w3-button w3-theme" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!-- Modal -->
+    <div id="UpdateInfo" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    @Html.Action("UpdateInfo", "Profile")
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="w3-button w3-theme" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!-- Modal -->
+    <div id="UpdatePic" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    @Html.Action("UpdatePic", "Profile")
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="w3-button w3-theme" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)

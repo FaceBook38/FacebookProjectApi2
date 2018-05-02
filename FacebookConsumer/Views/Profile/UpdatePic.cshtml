@@ -1,0 +1,52 @@
+﻿@model FacebookConsumer.Models.FaceBook.User
+
+@using (Html.BeginForm("UpdatePic", "Profile",FormMethod.Post,new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+    <h4>User</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group">
+        @Html.LabelFor(model => model.profile_image, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @if (Model.profile_image != null)
+    {
+    
+        <p class="w3-center"><img src="@(string.Format("data:image/jpeg;base64,{0}",Convert.ToBase64String(Model.profile_image)))" class="w3-circle" style="height:106px;width:106px" alt="Avatar"></p>
+}
+            @if (Model.profile_image == null)
+    {
+        <p class="w3-center"><img src="~/DefaultPic/user-profile.jpg" class="w3-circle" style="height:106px;width:106px" alt="Avatar"></p>
+}
+            @Html.ValidationMessageFor(model => model.profile_image, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    @Html.HiddenFor(model => model.user_id)
+    @Html.HiddenFor(model => model.user_name)
+
+    @Html.HiddenFor(model => model.user_email)
+
+    @Html.HiddenFor(model => model.user_password)
+
+    @Html.HiddenFor(model => model.confirm_password)
+
+    @Html.HiddenFor(model => model.deleted)
+
+    @Html.HiddenFor(model => model.user_type)
+    @Html.HiddenFor(model => model.profile_image)
+    @Html.HiddenFor(model => model.fname)
+    @Html.HiddenFor(model => model.lname)
+    @Html.HiddenFor(model => model.bio)
+    @Html.HiddenFor(model => model.age)
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+
+            <input type="file" value="Upload" name="uploadFile" />
+            <input type="submit" value="Save" class="btn btn-default" />
+        </div>
+    </div>
+</div>
+}

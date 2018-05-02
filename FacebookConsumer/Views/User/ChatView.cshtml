@@ -1,0 +1,34 @@
+﻿@model FacebookConsumer.Models.FaceBook.User
+<script src="~/Scripts/jquery-1.6.4.js"></script>
+<script src="~/Scripts/jquery.signalR-2.2.3.min.js"></script>
+<script src="http://localhost:54555/signalr/hubs"></script>
+<script>
+    $(function () {
+        proxy = $.connection.Chat;
+        //$.connection.hub.url = "http://localhost:54555/signalr/hubs"
+        $.connection.hub.start();
+        proxy.client.send = function (m, dt) {
+            $("#messageList").append("<li>" + m + "</li>")
+        }
+
+    });
+    @*$("#sendBtn").click = function () {
+            proxy.server.sendmessage($("#messInput").val(), 7, 2,'@DateTime.Now');
+    }*@
+   
+</script>
+<script>
+    function sending() {
+        Console.log("jhh,bas.kf");
+            proxy.server.sendmessage($("#messInput").val(), 77, 2,'@DateTime.Now');
+    }
+</script>
+
+<div>
+    <input type="text" placeholder="message" id="messInput">
+    <input type="button" value="Send" id="sendBtn" onclick="sending()" />
+    <ol id="messageList"></ol>
+
+</div>
+
+

@@ -1,5 +1,6 @@
 namespace FaceBookAPI.Models.FaceBook
 {
+    using FaceBookAPI.Models.FaceBook;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
@@ -17,6 +18,7 @@ namespace FaceBookAPI.Models.FaceBook
             Groups = new HashSet<Group>();
             Posts = new HashSet<Post>();
             User_Friends = new HashSet<User_Friends>();
+            //User_likes = new HashSet<User_likes>();
         }
 
         [Required]
@@ -71,5 +73,13 @@ namespace FaceBookAPI.Models.FaceBook
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<User_Friends> User_Friends { get; set; }
+
+        //[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        //public virtual ICollection<User_likes> User_likes { get; set; }
+        //[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        //public virtual ICollection<UsersMessage> UsersMessagesSender { get; set; }
+
+        //[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        //public virtual ICollection<UsersMessage> UsersMessagesRecevier { get; set; }
     }
 }

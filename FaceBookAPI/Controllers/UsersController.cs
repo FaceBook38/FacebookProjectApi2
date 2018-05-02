@@ -9,6 +9,7 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 using FaceBookAPI.Models.FaceBook;
+//using FacebookConsumer.Models.FaceBook;
 using FaceBookAPI.Models.ViewModels;
 
 namespace FaceBookAPI.Controllers
@@ -31,7 +32,8 @@ namespace FaceBookAPI.Controllers
         [ResponseType(typeof(User))]
         public IHttpActionResult LoginUser(LoginViewModel login)
         {
-            
+
+
             User user = db.Users.FirstOrDefault(user_ => user_.user_email == login.user_email&&user_.user_password == login.user_password && user_.deleted == false && user_.user_type == "user");
             if (user == null)
             {
@@ -120,7 +122,45 @@ namespace FaceBookAPI.Controllers
                 }
             }
 
-            return StatusCode(HttpStatusCode.NoContent);
+            return Ok(user);
+        }
+
+       
+        // GET: api/Users/Posts/5
+        //edit get all posts that deleted = false  and it's id ==5
+        [ResponseType(typeof(Post))]
+        [Route("api/Users/Posts/{id:int}")]
+        public IHttpActionResult GetPost(int id)
+        {
+           List<UserPost> posts = (from p in db.Posts
+                                from u in db.Users
+                                where p.user_id == id && p.deleted == false && p.user_id==u.user_id
+                                select new UserPost() {user=u, post=p}).OrderByDescending(p=>p.post.post_id).ToList();
+            //List < Post > post = db.Posts.Where(p => p.user_id == id && p.deleted == false).ToList();
+            if (posts.Count==0)
+            {
+                return NotFound();
+            }
+
+            return Ok(posts);
+        }
+
+        // GET: api/Users/Friends/5
+        //edit get all Friends that Request = false  and it's id ==5
+        [ResponseType(typeof(Post))]
+        [Route("api/Users/Friends/{id:int}")]
+        public IHttpActionResult GetFriends(int id)
+        {
+            List<User> users = (from u in db.Users
+                               from fu in db.User_Friends
+                               where u.user_id == fu.user_friend_id && fu.user_id == id
+                               select u).OrderBy(u=>u.user_name).ToList();
+            if (users.Count == 0)
+            {
+                return NotFound();
+            }
+
+            return Ok(users);
         }
 
         // POST: api/Users

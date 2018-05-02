@@ -1,5 +1,3 @@
-
-
 namespace FacebookConsumer.Models.FaceBook
 {
     using System;
@@ -19,8 +17,9 @@ namespace FacebookConsumer.Models.FaceBook
             Groups = new HashSet<Group>();
             Posts = new HashSet<Post>();
             User_Friends = new HashSet<User_Friends>();
+            User_likes = new HashSet<User_likes>();
         }
-
+        //
         [Required]
         [StringLength(50)]
         [Display(Name = "User name")]
@@ -30,13 +29,15 @@ namespace FacebookConsumer.Models.FaceBook
         public int user_id { get; set; }
 
         [Required]
+        [DataType(DataType.EmailAddress,ErrorMessage ="must match E-mail format (example@example.com)")]
         [StringLength(50)]
         [Display(Name = "Email")]
         public string user_email { get; set; }
-
-        [Required]
         [StringLength(50)]
-        
+        [Required]
+        [DataType(DataType.Password, ErrorMessage = "password must contain characters and numbers")]
+        [MinLength(8, ErrorMessage = "requires valid length 8 -- 12")]
+        [MaxLength(12, ErrorMessage = "requires valid length 8 -- 12")]
         [Display(Name = "Password")]
         public string user_password { get; set; }
         [Display(Name = "Confirm Password")]
@@ -47,11 +48,12 @@ namespace FacebookConsumer.Models.FaceBook
 
         [StringLength(10)]
         public string user_type { get; set; }
-
+        [DataType(DataType.Text ,ErrorMessage ="charactars only")]
         [Required]
         [StringLength(50)]
         [Display(Name = "First name")]
         public string fname { get; set; }
+        [DataType(DataType.Text, ErrorMessage = "charactars only")]
         [Display(Name = "Last name")]
         [StringLength(50)]
         public string lname { get; set; }
@@ -69,7 +71,6 @@ namespace FacebookConsumer.Models.FaceBook
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Comment> Comments { get; set; }
-
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Group_Members> Group_Members { get; set; }
 
@@ -81,5 +82,8 @@ namespace FacebookConsumer.Models.FaceBook
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<User_Friends> User_Friends { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<User_likes> User_likes { get; set; }
     }
 }

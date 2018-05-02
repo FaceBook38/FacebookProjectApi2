@@ -1,9 +1,11 @@
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-
 namespace FacebookConsumer.Models.FaceBook
 {
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
+    using System.Data.Entity.Spatial;
+
     public partial class Group
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -17,7 +19,7 @@ namespace FacebookConsumer.Models.FaceBook
         public int group_id { get; set; }
 
         public int group_admin { get; set; }
-        [Display(Name ="Group name")]
+
         [Required]
         [StringLength(50)]
         public string group_name { get; set; }

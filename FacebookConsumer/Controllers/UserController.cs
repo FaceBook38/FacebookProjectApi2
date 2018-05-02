@@ -46,9 +46,9 @@ namespace FacebookConsumer.Controllers
                     {
                         Session["user_id"] = userLogged.user_id;
                         Session["user_type"] = userLogged.user_type;
-                        if (userLogged.user_type == "user")
+                        if (Session["user_type"].ToString().Contains("user"))
                         {
-                            return RedirectToAction("Profile");
+                            return RedirectToAction("Index", "Profile", new { });
                         }
                         else //if the user is admin 
                         {
@@ -69,7 +69,6 @@ namespace FacebookConsumer.Controllers
             {
                 Console.WriteLine(exception);
             }
-
             return View();
         }
 
@@ -137,7 +136,6 @@ namespace FacebookConsumer.Controllers
                 var users = Response.Content.ReadAsAsync<User>().Result;
 
                     return View(users);
-
                 }
             }
             return View(new User());
@@ -201,7 +199,6 @@ namespace FacebookConsumer.Controllers
             // return URI of the created resource.
             return response;
         }
-
 
 
         //GET:View Friend or not Friend Profile 
@@ -319,7 +316,6 @@ namespace FacebookConsumer.Controllers
                     return View("AddFriendError");
                 }
 
-
                 if(FriendResponse.IsSuccessStatusCode)
                 {
                     User_Friends FriendAsUserFriend = new User_Friends { user_id = id, user_friend_id = (int)Session["user_id"],request=false  };
@@ -373,5 +369,57 @@ namespace FacebookConsumer.Controllers
                 return View("Error");
 
         }
+        public ActionResult Chat()
+        {
+            HttpClient client = new HttpClient();
+            client.BaseAddress = new Uri(baseURL);
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            HttpResponseMessage response = client.GetAsync("api/users/" + int.Parse(Session["user_id"].ToString())).Result;
+            if (response.IsSuccessStatusCode)
+            {
+                var user = response.Content.ReadAsAsync<User>().Result;
+                return PartialView("ChatView", user);
+            }
+            else return View("Error");
+        }
+
+        public ActionResult UserFriendsPosts()
+        {
+            List<Post> userPosts = new List<Post>();
+            int user_id = int.Parse(Session["user_id"].ToString());
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(baseURL);
+                client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+                HttpResponseMessage Response = client.GetAsync("api/Users/" + user_id).Result;
+                if (Response.IsSuccessStatusCode)
+                { 
+                    var user = Response.Content.ReadAsAsync<User>().Result;
+                    if(user!=null)
+                    {
+                        foreach (var items in user.User_Friends)
+                        {
+                            foreach (var item in items.User.Posts)
+                            {
+                                while (userPosts.Count <= 15)
+                                {
+                                    userPosts.Add(item);
+                                }
+                            }
+                        }
+                    }
+                    return View(userPosts);
+                }
+            }
+            return View(new User());
+        }
+        public ActionResult Logout()
+        {
+            Session["user_id"] = null;
+            Session["user_type"] = null;
+            return RedirectToAction("Login");
+        }
+             
     }
 }

@@ -9,6 +9,7 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 using FaceBookAPI.Models.FaceBook;
+//using FacebookConsumer.Models.FaceBook;
 
 namespace FaceBookAPI.Controllers
 {
@@ -20,7 +21,7 @@ namespace FaceBookAPI.Controllers
         //edit get all posts that deleted = false 
         public IQueryable<Post> GetPosts()
         {
-            return db.Posts.Where(p => p.deleted == false);
+            return db.Posts.Where(p => p.deleted == false).OrderByDescending(p=>p.post_id);
         }
 
         // GET: api/Posts/5
@@ -83,8 +84,16 @@ namespace FaceBookAPI.Controllers
 
             db.Posts.Add(post);
             db.SaveChanges();
-
-            return CreatedAtRoute("DefaultApi", new { id = post.post_id }, post);
+            List<UserPost> posts = (from p in db.Posts
+                                    from u in db.Users
+                                    where p.user_id == post.user_id && p.deleted == false && p.user_id == u.user_id
+                                    select new UserPost() { user = u, post = p }).OrderByDescending(p=>p.post.post_id).ToList();
+            if (posts.Count == 0)
+            {
+                return NotFound();
+            }
+            return Ok(posts);
+            //return CreatedAtRoute("DefaultApi", new { id = post.post_id }, post);
         }
 
         // DELETE: api/Posts/5
